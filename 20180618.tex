@@ -1,0 +1,203 @@
+\documentclass{beamer}
+
+%\usepackage{beamerthemesplit}
+%\usepackage{movie15}
+\usepackage{color,amsmath,xmpmulti,textpos,soul,cancel,framed,xspace,multimedia,framed}
+\usepackage[framemethod=TikZ]{mdframed}
+%\usepackage[makeroom]{cancel}
+\newcommand{\ave}[1]{\left\langle #1 \right \rangle}
+\newcommand{\eg}{{\it e.g.~}}
+\newcommand{\ie}{{\it i.e.~}}
+\newcommand{\cf}{{\it c.f.~}}
+\newcommand{\etc}{{\it etc.~}}
+\newcommand{\nth}{$^{\text{th}}$}
+\newcommand{\gt}{g_{\text{time}}}
+\newcommand{\gtc}{g_{\text{time}}^{\text{co}}}
+\newcommand{\gtn}{g_{\text{time}}^{\text{nc}}}
+\newcommand{\be}{\begin{equation*}}
+\newcommand{\ee}{\end{equation*}}
+\newcommand{\bea}{\begin{eqnarray*}}
+\newcommand{\eea}{\end{eqnarray*}}
+\newcommand{\bc}{\begin{center}}
+\newcommand{\ec}{\end{center}}
+\newcommand{\bi}{\begin{itemize}}
+\newcommand{\ei}{\end{itemize}}
+\newcommand{\toinf}{{\rightarrow\infty}}
+\newcommand{\D}{{\Delta}}
+\newcommand{\Dx}{{\Delta x}}
+\newcommand{\Dy}{{\Delta y}}
+\newcommand{\Du}{{\Delta u}}
+\newcommand{\Dt}{{\Delta t}}
+\newcommand{\DW}{{\Delta W}}
+\newcommand{\DU}{{\Delta U}}
+\newcommand{\du}{{\delta u}}
+\newcommand{\dt}{{\delta t}}
+\newcommand{\gens}{g_{\ave{\,}}}
+\xdefinecolor{lightblue}{rgb}{0,200,255}
+\setbeamercolor{important}{bg=lightblue,fg=red}
+\newcommand{\ft}[1]{\frametitle{#1}}
+\newcommand{\bq}{\begin{quote}}
+\newcommand{\eq}{\end{quote}}
+\newcommand{\ww}[1]{\bq{\small\rm#1\\}\eq}
+\newcommand{\E}[1]{\text{E}\left[#1\right]}
+\newcommand{\Var}[1]{\text{Var}\left[#1\right]}
+\newcommand{\var}[1]{\text{var}\left[#1\right]}
+\newcommand{\prob}[1]{\mathcal{P}\left(#1\right)}
+\newcommand{\lra}{\longrightarrow}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\ga}{g_\text{ave}}
+%\newcommand{\gt}{g_\text{typ}}
+\newcommand{\gbar}{\bar{g}}
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+
+\newcommand{\btVFill}{\vskip0pt plus 1filll}
+
+\newcommand{\nmax}{{n_{\text{max}}}\xspace}
+\newcommand{\Ito}{It\^{o}}
+\newcommand{\SP}{S{\&}P500}
+\newcommand{\lopt}{l_{\text{opt}}}
+\newcommand{\gest}{g_{\text{est}}}
+%\setbeamercovered{transparent}
+\newcommand{\elabel}[1]{\label{eq:#1}}
+\newcommand{\eref}[1]{Eq.~(\ref{eq:#1})}
+\newcommand{\Eref}[1]{Equation~(\ref{eq:#1})}
+
+\newcommand{\vs}[1]{\vspace{.#1cm}}
+\newcommand{\vf}{\vspace{.25cm}}
+\newcommand{\np}{\\ \vf}
+
+\newcommand{\flabel}[1]{\label{fig:#1}}
+\newcommand{\fref}[1]{Fig.~\ref{fig:#1}}
+\newcommand{\Fref}[1]{Figure~\ref{fig:#1}}
+\newcommand{\person}[1]{\textsc{#1}}
+
+\xdefinecolor{lightblue}{rgb}{0,200,255}
+\setbeamercolor{important}{bg=lightblue,fg=red}
+
+\newenvironment{myindentpar}[1]%
+{\begin{list}{}%
+    {\setlength{\leftmargin}{#1}}%
+  \item[]%
+}
+{\end{list}}
+
+\usetheme[hideothersubsections]{Hannover}
+
+\newcommand\BackgroundPicture[1]{
+\setbeamertemplate{background}{
+\parbox[c][\paperheight]{\paperwidth}{
+\vfill \hfill
+\includegraphics[width=1\paperwidth,height=1\paperheight]{#1}
+\hfill \vfill
+}}}
+
+
+
+% conundrum environment
+\definecolor{col2}{rgb}{0.8,.2,.2} % lml blue
+\newenvironment{conn}[1]
+  {\begin{samepage}
+  \begin{mdframed}[linecolor=col2,linewidth=2pt,roundcorner=10pt,frametitle={\underline{{\sc #1}}}]}
+  {\end{mdframed}
+  \end{samepage}}
+
+% solution environment
+\definecolor{col3}{rgb}{0,.27,.4375} % lml blue
+\newenvironment{soln}[1]
+  {\begin{samepage}
+  \begin{mdframed}[linecolor=col3,linewidth=2pt,roundcorner=10pt,frametitle={\underline{{\sc #1}}}]}
+  {\end{mdframed}
+  \end{samepage}}
+
+
+
+\definecolor{lmlblue}{RGB}{0,70,112}
+%\definecolor{lmlblue}{RGB}{0,51,102}
+\definecolor{lmlgrey}{RGB}{142,142,142}
+\definecolor{grey}{RGB}{210,210,210}
+\definecolor{ken}{RGB}{9,11,179}
+\definecolor{ole}{RGB}{0,0,255}
+\definecolor{fermat}{RGB}{50,150,50}
+\definecolor{bernoulli}{RGB}{200,50,50}
+
+
+
+\setbeamercolor{alerted text}{fg=lmlblue}
+\setbeamercolor{background canvas}{bg=white}
+\setbeamercolor{block body alerted}{fg=lmlblue}
+\setbeamercolor{block body}{fg=lmlblue}
+\setbeamercolor{block body example}{fg=lmlblue}
+
+\setbeamercolor{block title alerted}{fg=lmlblue}
+\setbeamercolor{block title}{fg=lmlblue}
+\setbeamercolor{block title example}{fg=lmlblue}
+
+\setbeamercolor{fine separation line}{fg=lmlgrey}
+\setbeamercolor{frametitle}{fg=lmlblue}
+\setbeamercolor{item projected}{fg=white, bg=lmlblue}
+\setbeamercolor{normal text}{fg=black}
+
+\setbeamercolor{palette sidebar primary}{fg=lmlgrey}
+\setbeamercolor{palette sidebar quarternary}{fg=lmlgrey}
+\setbeamercolor{palette sidebar secondary}{fg=lmlgrey}
+\setbeamercolor{palette sidebar tertiary}{fg=lmlgrey}
+\setbeamercolor{section in sidebar}{fg=white}
+\setbeamercolor{section in sidebar shaded}{fg=grey}
+
+\setbeamercolor{separation line}{fg=lmlgrey}
+
+\setbeamercolor{sidebar}{bg=lmlgrey}
+\setbeamercolor{sidebar}{parent=palette primary}
+
+\setbeamercolor{structure}{bg=white, fg=lmlblue}
+%structure changes color of title in sidebar.
+\setbeamercolor{subsection in sidebar}{fg=white}
+\setbeamercolor{subsection in sidebar shaded}{fg=grey}
+
+\setbeamercolor{title}{fg=lmlblue}
+\setbeamercolor{titlelike}{fg=lmlgrey}
+
+\logo{\includegraphics[width=1.cm]{./figs/logo_only.jpg}}
+
+\title[\insertlogo\\]{\Large{\bf Ergodicity and Economics}}
+
+\author{
+{\bf Ole Peters }
+}
+
+\date{
+%\vspace{0cm}\\
+\hspace{-.5cm}\includegraphics[width=3.cm]{./figs/lml_LOGO_whiteBG.jpg} 
+
+\vspace{1cm}
+LML --  19 June 2018 \\
+}
+
+
+\begin{document}
+
+\frame{\titlepage}
+
+\frame{
+\begin{picture}(300,200)(-20,20)
+\put(0,40){\includegraphics[width=6.1cm]{./figs/ga_x_mul.pdf}}
+\end{picture}
+}
+
+
+
+\frame{
+
+\begin{center}
+{\huge{Thank you.}}
+
+\includegraphics[height=5cm]{./figs/time_trajectory.pdf}\\ 
+\vspace{.3cm}
+\end{center}
+
+}
+
+
+\end{document}
+    
+
