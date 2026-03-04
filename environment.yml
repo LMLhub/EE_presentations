@@ -1,0 +1,12 @@
+name: ee_presentations
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python>=3.11
+  - numpy
+  - matplotlib
+  - pip
+  - pip:
+    - streamlit
+    - pymupdf
