@@ -1,8 +1,9 @@
 """
-Slide-deck definition for this presentation.
+Custom interactive app slides for this presentation.
 
-Defines the interactive app slides and the ordering of PDF + app slides.
-Imported dynamically by the shared presentation.py viewer.
+Defines app-slide functions and the APP_SLIDES dict.
+The shared presentation.py viewer handles combining these
+with the PDF pages.
 """
 
 import streamlit as st
@@ -10,9 +11,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-# ---------------------------------------------------------------------------
-# Custom app slides
-# ---------------------------------------------------------------------------
 def app_slide_demo() -> None:
     """A trivial interactive slide: a configurable sine wave."""
     st.subheader("Interactive Demo Slide")
@@ -39,31 +37,3 @@ def app_slide_demo() -> None:
 APP_SLIDES: dict = {
     "demo": app_slide_demo,
 }
-
-
-# ---------------------------------------------------------------------------
-# Slide deck definition
-# ---------------------------------------------------------------------------
-def build_slides(pdf_page_count: int) -> list[tuple[str, int | str]]:
-    """
-    Return an ordered list of (kind, value) pairs where:
-      ("pdf", page_index)  — render page from the PDF (0-based index)
-      ("app", key)         — call APP_SLIDES[key]()
-    """
-    n = pdf_page_count
-    mid = max(1, n // 2)
-
-    slides: list[tuple[str, int | str]] = []
-
-    # First half of PDF
-    for i in range(mid):
-        slides.append(("pdf", i))
-
-    # Inline app slide
-    slides.append(("app", "demo"))
-
-    # Second half of PDF
-    for i in range(mid, n):
-        slides.append(("pdf", i))
-
-    return slides

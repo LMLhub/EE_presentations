@@ -5,9 +5,10 @@ Usage:
   streamlit run presentation.py -- presentations/20260326-01-01
 
 Renders a slide deck composed of PDF pages and interactive Streamlit app
-slides.  Each presentation folder contains a slides.py that defines:
-  - APP_SLIDES:  dict mapping keys to slide functions
-  - build_slides(pdf_page_count):  returns the ordered slide list
+slides.  Each presentation folder may contain a slides.py that defines:
+  - APP_SLIDES:  dict mapping keys to app-slide functions
+
+If no slides.py exists the deck is pure PDF pages.
 """
 
 import sys
@@ -30,23 +31,20 @@ PDF_PATH = PRES_DIR / "main.pdf"
 
 
 # ---------------------------------------------------------------------------
-# Load presentation-specific slides.py
+# Load presentation-specific slides.py (optional)
 # ---------------------------------------------------------------------------
-def _load_slides_module(pres_dir: Path):
-    """Dynamically import slides.py from the presentation folder."""
+def _load_app_slides(pres_dir: Path) -> dict:
+    """Import APP_SLIDES from the presentation's slides.py, or return {}."""
     slides_file = pres_dir / "slides.py"
     if not slides_file.exists():
-        st.error(f"No slides.py found in {pres_dir}")
-        st.stop()
+        return {}
     spec = importlib.util.spec_from_file_location("slides", slides_file)
     mod = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(mod)
-    return mod
+    return getattr(mod, "APP_SLIDES", {})
 
 
-_slides_mod = _load_slides_module(PRES_DIR)
-APP_SLIDES: dict = _slides_mod.APP_SLIDES
-build_slides = _slides_mod.build_slides
+APP_SLIDES: dict = _load_app_slides(PRES_DIR)
 
 
 # ---------------------------------------------------------------------------
@@ -68,6 +66,23 @@ def render_pdf_page(page_index: int) -> str:
     svg = page.get_svg_image(matrix=fitz.Identity)
     doc.close()
     return svg
+
+
+# ---------------------------------------------------------------------------
+# Slide deck builder
+# ---------------------------------------------------------------------------
+def build_slides(pdf_page_count: int, app_slides: dict) -> list[tuple[str, int | str]]:
+    """
+    Build the ordered slide list: all PDF pages first, then any app slides.
+
+    Returns a list of (kind, value) pairs:
+      ("pdf", page_index)  — render a page from the PDF (0-based)
+      ("app", key)         — call app_slides[key]()
+    """
+    slides: list[tuple[str, int | str]] = [("pdf", i) for i in range(pdf_page_count)]
+    for key in app_slides:
+        slides.append(("app", key))
+    return slides
 
 
 # ---------------------------------------------------------------------------
@@ -122,7 +137,7 @@ def main() -> None:
     st.set_page_config(page_title="Presentation", layout="wide", initial_sidebar_state="expanded")
     st.markdown(CSS, unsafe_allow_html=True)
 
-    slides = build_slides(get_pdf_page_count())
+    slides = build_slides(get_pdf_page_count(), APP_SLIDES)
     total = len(slides)
 
     if "slide_idx" not in st.session_state:

@@ -96,19 +96,16 @@ Create a `main.tex` that starts with:
 
 The shared preamble provides all macros and the Beamer theme.
 
-Then create a `slides.py` in the same folder that defines the slide ordering
-and any interactive app slides (see next section).
+Optionally create a `slides.py` in the same folder to add interactive
+Streamlit slides (see next section). If omitted, the deck is pure PDF.
 
 ---
 
 ### 4 — Add interactive Streamlit slides
 
-Each presentation has its own `slides.py` that defines:
-
-- **`APP_SLIDES`** — a dict mapping keys to app-slide functions
-- **`build_slides(pdf_page_count)`** — returns the ordered slide list
-
-To add a new interactive slide, edit your presentation's `slides.py`:
+The shared `presentation.py` viewer automatically shows all PDF pages
+followed by any interactive app slides. To add app slides, create a
+`slides.py` in your presentation folder:
 
 **Step 1** — write a function:
 
@@ -123,20 +120,12 @@ def my_slide() -> None:
 
 ```python
 APP_SLIDES: dict = {
-    "demo": app_slide_demo,
-    "mine": my_slide,       # ← add this
+    "mine": my_slide,
 }
 ```
 
-**Step 3** — place it in the deck by editing `build_slides()`:
-
-```python
-slides.append(("pdf", 3))        # PDF page 4 (0-based)
-slides.append(("app", "mine"))   # your interactive slide
-slides.append(("pdf", 4))        # PDF page 5
-```
-
-Each entry is either `("pdf", page_index)` (0-based) or `("app", key)`.
+The viewer will show all PDF pages first, then each app slide in the
+order they appear in the dict.
 
 ---
 
