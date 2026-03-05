@@ -1,6 +1,9 @@
 """
 Streamlit presentation viewer.
 
+Usage:
+  streamlit run presentation.py -- presentations/20260326-01-01
+
 Slide deck = PDF pages + inline Streamlit app slides interspersed.
 Add new app slides by:
   1. Writing a function  def my_slide(): ...
@@ -8,6 +11,7 @@ Add new app slides by:
   3. Inserting ("app", "my_key") at the desired position in build_slides().
 """
 
+import sys
 import streamlit as st
 import streamlit.components.v1 as components
 import fitz  # PyMuPDF
@@ -18,7 +22,12 @@ from pathlib import Path
 # ---------------------------------------------------------------------------
 # Config
 # ---------------------------------------------------------------------------
-PDF_PATH = Path(__file__).parent / "20260326-01-01.pdf"
+# Accept presentation folder as a CLI argument (after the -- separator)
+if len(sys.argv) < 2:
+    st.error("Usage: `streamlit run presentation.py -- <presentation-folder>`")
+    st.stop()
+
+PDF_PATH = Path(sys.argv[1]) / "main.pdf"
 
 
 # ---------------------------------------------------------------------------

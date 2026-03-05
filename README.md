@@ -1,8 +1,27 @@
 Templates for presentations based on Peters and Adamou, *An Introduction to Ergodicity Economics,* LML Press, 2025.
 
 <p align="center">
-  <img src="figs/An_Introduction_to_Ergodicity_Economics_front.png" width="50%">
+  <img src="shared/An_Introduction_to_Ergodicity_Economics_front.png" width="50%">
 </p>
+
+---
+
+## Project structure
+
+```
+EE_presentations/
+├── README.md
+├── environment.yml            # Conda / pip dependencies
+├── presentation.py            # Streamlit presentation viewer
+├── build.sh                   # Compile LaTeX → PDF
+├── shared/
+│   └── preamble.tex           # Shared Beamer macros & theme
+├── presentations/
+│   └── 20260326-01-01/        # One folder per presentation
+│       ├── main.tex           # LaTeX / Beamer source
+│       ├── main.pdf           # Compiled PDF
+│       └── figs/              # Figures used in this presentation
+```
 
 ---
 
@@ -21,13 +40,14 @@ conda activate ee_presentations
 
 ### 1 — Write slides in LaTeX
 
-Edit the `.tex` file, then compile to PDF:
+Each presentation lives in its own folder under `presentations/`. Edit
+`main.tex` inside that folder, then compile to PDF:
 
 ```bash
-./build.sh
+./build.sh presentations/20260326-01-01
 ```
 
-This runs `pdflatex` twice (required for Beamer cross-references) and removes all auxiliary files, leaving only the `.pdf`.
+This runs `pdflatex` twice (required for Beamer cross-references) and removes all auxiliary files, leaving only `main.pdf`.
 
 ---
 
@@ -35,17 +55,41 @@ This runs `pdflatex` twice (required for Beamer cross-references) and removes al
 
 ```bash
 conda activate ee_presentations
-streamlit run presentation.py
+streamlit run presentation.py -- presentations/20260326-01-01
 ```
 
 The presentation opens automatically at `http://localhost:8501`.
 
-**Navigation:** use the **← →** (or **↑ ↓**) arrow keys to move between slides.  
+**Navigation:** use the **← →** (or **↑ ↓**) arrow keys to move between slides.
 The slide fills the full browser window; zoom the browser to taste.
 
 ---
 
-### 3 — Add interactive Streamlit slides
+### 3 — Create a new presentation
+
+```bash
+mkdir -p presentations/YYYYMMDD-NN-NN/figs
+```
+
+Create a `main.tex` that starts with:
+
+```latex
+\input{../../shared/preamble.tex}
+
+\title{...}
+\author{...}
+\date{...}
+
+\begin{document}
+  ...
+\end{document}
+```
+
+The shared preamble provides all macros and the Beamer theme.
+
+---
+
+### 4 — Add interactive Streamlit slides
 
 Slides are a mix of PDF pages and live Streamlit apps. To add a new interactive slide:
 
@@ -83,8 +127,8 @@ Each entry is either `("pdf", page_index)` (0-based) or `("app", key)`.
 
 | File | Purpose |
 |---|---|
-| `*.tex` | LaTeX / Beamer source |
-| `build.sh` | Compile LaTeX → PDF and clean up |
-| `presentation.py` | Streamlit presentation viewer |
+| `presentations/*/main.tex` | LaTeX / Beamer source for each talk |
+| `shared/preamble.tex` | Shared macros & Beamer theme |
+| `build.sh` | Compile a presentation: `./build.sh presentations/<name>` |
+| `presentation.py` | Streamlit viewer: `streamlit run presentation.py -- presentations/<name>` |
 | `environment.yml` | Conda environment definition |
-| `figs/` | Figures used in the LaTeX source |
