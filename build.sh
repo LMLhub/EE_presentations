@@ -1,13 +1,25 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-TEXFILE="20260326-01-01"
+# Usage: ./build.sh presentations/20260326-01-01
+PRES_DIR="${1:?Usage: ./build.sh <presentation-folder>}"
+REPO_ROOT="$(cd "$(dirname "$0")" && pwd)"
 
-echo "==> Compiling $TEXFILE.tex ..."
-pdflatex -interaction=nonstopmode "$TEXFILE.tex"
-pdflatex -interaction=nonstopmode "$TEXFILE.tex"
+if [[ ! -f "$PRES_DIR/main.tex" ]]; then
+  echo "Error: $PRES_DIR/main.tex not found" >&2
+  exit 1
+fi
+
+cd "$PRES_DIR"
+
+# Let pdflatex find shared/ via TEXINPUTS
+export TEXINPUTS=".:${REPO_ROOT}/shared//:${TEXINPUTS:-}"
+
+echo "==> Compiling main.tex in $PRES_DIR ..."
+pdflatex -interaction=nonstopmode main.tex
+pdflatex -interaction=nonstopmode main.tex
 
 echo "==> Cleaning up ..."
-rm -f "$TEXFILE".{aux,log,nav,out,snm,toc,vrb}
+rm -f main.{aux,log,nav,out,snm,toc,vrb}
 
-echo "==> Done: $TEXFILE.pdf"
+echo "==> Done: $PRES_DIR/main.pdf"

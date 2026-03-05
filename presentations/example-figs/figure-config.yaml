@@ -1,0 +1,8 @@
+# Figure generation configuration for this presentation.
+# See shared/figure-config.yaml for the default template.
+data folder: './data/'
+figures folder: './figs/'
+figure size:
+  x: 8.0
+  y: 6.0
+aspect ratio: 1.0

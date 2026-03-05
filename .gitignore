@@ -1,4 +1,4 @@
-plotting/__pycache__/*
+__pycache__/
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof
@@ -313,3 +313,4 @@ TSWLatexianTemp*
 # Uncomment the next line to have this generated file ignored.
 #*Notes.bib
 .DS_Store
+.venv/
