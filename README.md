@@ -20,6 +20,7 @@ EE_presentations/
 │   └── 20260326-01-01/        # One folder per presentation
 │       ├── main.tex           # LaTeX / Beamer source
 │       ├── main.pdf           # Compiled PDF
+│       ├── slides.py          # Slide deck definition (app slides + ordering)
 │       └── figs/              # Figures used in this presentation
 ```
 
@@ -87,13 +88,21 @@ Create a `main.tex` that starts with:
 
 The shared preamble provides all macros and the Beamer theme.
 
+Then create a `slides.py` in the same folder that defines the slide ordering
+and any interactive app slides (see next section).
+
 ---
 
 ### 4 — Add interactive Streamlit slides
 
-Slides are a mix of PDF pages and live Streamlit apps. To add a new interactive slide:
+Each presentation has its own `slides.py` that defines:
 
-**Step 1** — write a function in `presentation.py`:
+- **`APP_SLIDES`** — a dict mapping keys to app-slide functions
+- **`build_slides(pdf_page_count)`** — returns the ordered slide list
+
+To add a new interactive slide, edit your presentation's `slides.py`:
+
+**Step 1** — write a function:
 
 ```python
 def my_slide() -> None:
@@ -128,6 +137,7 @@ Each entry is either `("pdf", page_index)` (0-based) or `("app", key)`.
 | File | Purpose |
 |---|---|
 | `presentations/*/main.tex` | LaTeX / Beamer source for each talk |
+| `presentations/*/slides.py` | Slide deck definition (app slides + ordering) |
 | `shared/preamble.tex` | Shared macros & Beamer theme |
 | `build.sh` | Compile a presentation: `./build.sh presentations/<name>` |
 | `presentation.py` | Streamlit viewer: `streamlit run presentation.py -- presentations/<name>` |

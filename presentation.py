@@ -4,19 +4,17 @@ Streamlit presentation viewer.
 Usage:
   streamlit run presentation.py -- presentations/20260326-01-01
 
-Slide deck = PDF pages + inline Streamlit app slides interspersed.
-Add new app slides by:
-  1. Writing a function  def my_slide(): ...
-  2. Adding it to APP_SLIDES dict with a unique key.
-  3. Inserting ("app", "my_key") at the desired position in build_slides().
+Renders a slide deck composed of PDF pages and interactive Streamlit app
+slides.  Each presentation folder contains a slides.py that defines:
+  - APP_SLIDES:  dict mapping keys to slide functions
+  - build_slides(pdf_page_count):  returns the ordered slide list
 """
 
 import sys
+import importlib.util
 import streamlit as st
 import streamlit.components.v1 as components
 import fitz  # PyMuPDF
-import numpy as np
-import matplotlib.pyplot as plt
 from pathlib import Path
 
 # ---------------------------------------------------------------------------
@@ -27,7 +25,28 @@ if len(sys.argv) < 2:
     st.error("Usage: `streamlit run presentation.py -- <presentation-folder>`")
     st.stop()
 
-PDF_PATH = Path(sys.argv[1]) / "main.pdf"
+PRES_DIR = Path(sys.argv[1])
+PDF_PATH = PRES_DIR / "main.pdf"
+
+
+# ---------------------------------------------------------------------------
+# Load presentation-specific slides.py
+# ---------------------------------------------------------------------------
+def _load_slides_module(pres_dir: Path):
+    """Dynamically import slides.py from the presentation folder."""
+    slides_file = pres_dir / "slides.py"
+    if not slides_file.exists():
+        st.error(f"No slides.py found in {pres_dir}")
+        st.stop()
+    spec = importlib.util.spec_from_file_location("slides", slides_file)
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
+
+
+_slides_mod = _load_slides_module(PRES_DIR)
+APP_SLIDES: dict = _slides_mod.APP_SLIDES
+build_slides = _slides_mod.build_slides
 
 
 # ---------------------------------------------------------------------------
@@ -49,65 +68,6 @@ def render_pdf_page(page_index: int) -> str:
     svg = page.get_svg_image(matrix=fitz.Identity)
     doc.close()
     return svg
-
-
-# ---------------------------------------------------------------------------
-# Custom app slides — add your own here
-# ---------------------------------------------------------------------------
-def app_slide_demo() -> None:
-    """A trivial interactive slide: a configurable sine wave."""
-    st.subheader("Interactive Demo Slide")
-    col1, col2 = st.columns(2)
-    with col1:
-        freq = st.slider("Frequency", 0.5, 5.0, 1.0, 0.1)
-    with col2:
-        amp = st.slider("Amplitude", 0.1, 2.0, 1.0, 0.1)
-
-    x = np.linspace(0, 2 * np.pi, 500)
-    y = amp * np.sin(freq * x)
-
-    fig, ax = plt.subplots(figsize=(7, 3))
-    ax.plot(x, y, lw=2)
-    ax.set_xlabel("x")
-    ax.set_ylabel("y")
-    ax.set_title(f"y = {amp:.1f} · sin({freq:.1f}x)")
-    ax.grid(True, alpha=0.3)
-    st.pyplot(fig)
-    plt.close(fig)
-
-
-# Map keys to app-slide functions
-APP_SLIDES: dict = {
-    "demo": app_slide_demo,
-}
-
-
-# ---------------------------------------------------------------------------
-# Slide deck definition
-# ---------------------------------------------------------------------------
-def build_slides() -> list[tuple[str, int | str]]:
-    """
-    Return an ordered list of (kind, value) pairs where:
-      ("pdf", page_index)  — render page from the PDF (0-based index)
-      ("app", key)         — call APP_SLIDES[key]()
-    """
-    n = get_pdf_page_count()
-    mid = max(1, n // 2)
-
-    slides: list[tuple[str, int | str]] = []
-
-    # First half of PDF
-    for i in range(mid):
-        slides.append(("pdf", i))
-
-    # Inline app slide
-    slides.append(("app", "demo"))
-
-    # Second half of PDF
-    for i in range(mid, n):
-        slides.append(("pdf", i))
-
-    return slides
 
 
 # ---------------------------------------------------------------------------
@@ -162,7 +122,7 @@ def main() -> None:
     st.set_page_config(page_title="Presentation", layout="wide", initial_sidebar_state="expanded")
     st.markdown(CSS, unsafe_allow_html=True)
 
-    slides = build_slides()
+    slides = build_slides(get_pdf_page_count())
     total = len(slides)
 
     if "slide_idx" not in st.session_state:
