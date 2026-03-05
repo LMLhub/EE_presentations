@@ -10,7 +10,7 @@ import sys
 from pathlib import Path
 
 # Add the repo root to sys.path so we can import shared.plotting
-REPO_ROOT = Path(__file__).resolve().parent.parent.parent
+REPO_ROOT = Path(__file__).resolve().parent.parent.parent.parent
 sys.path.insert(0, str(REPO_ROOT))
 
 import matplotlib.pyplot as plt
