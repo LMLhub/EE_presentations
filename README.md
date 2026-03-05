@@ -78,7 +78,7 @@ The slide fills the full browser window; zoom the browser to taste.
 ### 3 — Create a new presentation
 
 ```bash
-mkdir -p presentations/YYYYMMDD-NN-NN/figs
+mkdir -p presentations/<presentation-name>
 ```
 
 Create a `main.tex` that starts with:
