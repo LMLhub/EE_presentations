@@ -1,9 +1,9 @@
 """
 Custom interactive app slides for this presentation.
 
-Defines app-slide functions and the APP_SLIDES dict.
-The shared presentation.py viewer handles combining these
-with the PDF pages.
+Defines app-slide functions, the APP_SLIDES dict, and a custom
+build_slides() that interleaves the demo slide at the midpoint
+of the PDF deck.
 """
 
 import streamlit as st
@@ -11,6 +11,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
+# ---------------------------------------------------------------------------
+# App slide functions
+# ---------------------------------------------------------------------------
 def app_slide_demo() -> None:
     """A trivial interactive slide: a configurable sine wave."""
     st.subheader("Interactive Demo Slide")
@@ -37,3 +40,27 @@ def app_slide_demo() -> None:
 APP_SLIDES: dict = {
     "demo": app_slide_demo,
 }
+
+
+# ---------------------------------------------------------------------------
+# Custom slide ordering — interleave the demo slide at the midpoint
+# ---------------------------------------------------------------------------
+def build_slides(pdf_page_count: int, app_slides: dict) -> list[tuple[str, int | str]]:
+    """Insert the interactive demo slide halfway through the PDF pages."""
+    n = pdf_page_count
+    mid = max(1, n // 2)
+
+    slides: list[tuple[str, int | str]] = []
+
+    # First half of PDF pages
+    for i in range(mid):
+        slides.append(("pdf", i))
+
+    # Inline app slide
+    slides.append(("app", "demo"))
+
+    # Second half of PDF pages
+    for i in range(mid, n):
+        slides.append(("pdf", i))
+
+    return slides

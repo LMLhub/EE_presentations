@@ -7,8 +7,11 @@ Usage:
 Renders a slide deck composed of PDF pages and interactive Streamlit app
 slides.  Each presentation folder may contain a slides.py that defines:
   - APP_SLIDES:  dict mapping keys to app-slide functions
+  - build_slides(pdf_page_count, app_slides):  optional function returning
+    a custom ordering of ("pdf", idx) and ("app", key) tuples
 
-If no slides.py exists the deck is pure PDF pages.
+If no slides.py exists the deck is pure PDF pages.  If slides.py omits
+build_slides, app slides are appended after all PDF pages.
 """
 
 import sys
@@ -33,18 +36,20 @@ PDF_PATH = PRES_DIR / "main.pdf"
 # ---------------------------------------------------------------------------
 # Load presentation-specific slides.py (optional)
 # ---------------------------------------------------------------------------
-def _load_app_slides(pres_dir: Path) -> dict:
-    """Import APP_SLIDES from the presentation's slides.py, or return {}."""
+def _load_slides_module(pres_dir: Path):
+    """Import the presentation's slides.py module, or return None."""
     slides_file = pres_dir / "slides.py"
     if not slides_file.exists():
-        return {}
+        return None
     spec = importlib.util.spec_from_file_location("slides", slides_file)
     mod = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(mod)
-    return getattr(mod, "APP_SLIDES", {})
+    return mod
 
 
-APP_SLIDES: dict = _load_app_slides(PRES_DIR)
+_SLIDES_MOD = _load_slides_module(PRES_DIR)
+APP_SLIDES: dict = getattr(_SLIDES_MOD, "APP_SLIDES", {}) if _SLIDES_MOD else {}
+_CUSTOM_BUILD_SLIDES = getattr(_SLIDES_MOD, "build_slides", None)
 
 
 # ---------------------------------------------------------------------------
@@ -73,12 +78,20 @@ def render_pdf_page(page_index: int) -> str:
 # ---------------------------------------------------------------------------
 def build_slides(pdf_page_count: int, app_slides: dict) -> list[tuple[str, int | str]]:
     """
-    Build the ordered slide list: all PDF pages first, then any app slides.
+    Build the ordered slide list.
+
+    If the presentation's slides.py defines a build_slides(pdf_page_count,
+    app_slides) function, that custom ordering is used.  Otherwise the
+    default is all PDF pages followed by any app slides.
 
     Returns a list of (kind, value) pairs:
       ("pdf", page_index)  — render a page from the PDF (0-based)
       ("app", key)         — call app_slides[key]()
     """
+    if _CUSTOM_BUILD_SLIDES is not None:
+        return _CUSTOM_BUILD_SLIDES(pdf_page_count, app_slides)
+
+    # Default: all PDF pages, then app slides at the end
     slides: list[tuple[str, int | str]] = [("pdf", i) for i in range(pdf_page_count)]
     for key in app_slides:
         slides.append(("app", key))
