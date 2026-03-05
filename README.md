@@ -15,8 +15,16 @@ EE_presentations/
 ├── presentation.py            # Streamlit presentation viewer
 ├── build.sh                   # Compile LaTeX → PDF
 ├── shared/
-│   └── preamble.tex           # Shared Beamer macros & theme
+│   ├── preamble.tex           # Shared Beamer macros & theme
+│   ├── plotting/              # Shared matplotlib styling & utilities
+│   │   ├── __init__.py
+│   │   └── base.py
+│   └── figure-config.yaml     # Default figure-generation config template
 ├── presentations/
+│   ├── example-figs/          # Demo: generating & displaying figures
+│   │   ├── generate-figs.py   # Script to create figures using shared/plotting
+│   │   ├── figure-config.yaml # Local config (output to ./figs/)
+│   │   ├── main.tex / slides.py / figs/
 │   └── 20260326-01-01/        # One folder per presentation
 │       ├── main.tex           # LaTeX / Beamer source
 │       ├── main.pdf           # Compiled PDF
@@ -132,6 +140,31 @@ Each entry is either `("pdf", page_index)` (0-based) or `("app", key)`.
 
 ---
 
+### 5 — Generate figures with consistent styling
+
+A shared plotting module (`shared/plotting/`) provides consistent matplotlib
+styling across all presentations. Each presentation can include a
+`generate-figs.py` script to create its figures:
+
+```bash
+cd presentations/example-figs
+python generate-figs.py figure-config.yaml
+```
+
+The script imports from `shared.plotting` and saves PDFs into the local
+`figs/` folder, ready to be included by `main.tex`.
+
+See `presentations/example-figs/` for a complete working example.
+
+**Creating a figure script for a new presentation:**
+
+1. Copy `presentations/example-figs/generate-figs.py` and
+   `presentations/example-figs/figure-config.yaml` into your presentation folder
+2. Edit `generate-figs.py` to generate your figures
+3. Run it, then compile the LaTeX: `./build.sh presentations/<name>`
+
+---
+
 ## File overview
 
 | File | Purpose |
@@ -139,6 +172,8 @@ Each entry is either `("pdf", page_index)` (0-based) or `("app", key)`.
 | `presentations/*/main.tex` | LaTeX / Beamer source for each talk |
 | `presentations/*/slides.py` | Slide deck definition (app slides + ordering) |
 | `shared/preamble.tex` | Shared macros & Beamer theme |
+| `shared/plotting/` | Shared matplotlib styling & utilities |
+| `shared/figure-config.yaml` | Default figure-generation config template |
 | `build.sh` | Compile a presentation: `./build.sh presentations/<name>` |
 | `presentation.py` | Streamlit viewer: `streamlit run presentation.py -- presentations/<name>` |
 | `environment.yml` | Conda environment definition |
