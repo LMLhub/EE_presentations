@@ -1,0 +1,55 @@
+\input{../../shared/preamble.tex}
+
+\title[\insertlogo\\]{\Large{\bf Example Presentation}}
+
+\author{
+{\bf EE Presentations}
+}
+
+\date{}
+
+
+\begin{document}
+
+\frame{\titlepage}
+
+\frame{
+\frametitle{Brownian motion with drift}
+A particle following Brownian motion with drift $\mu$ and volatility $\sigma$ satisfies
+\be
+  dx = \mu \, dt + \sigma \, dW\,.
+\ee
+The figure below shows three sample paths with different drift values.
+\begin{center}
+\includegraphics[height=5cm]{./figs/brownian-paths.pdf}
+\end{center}
+}
+
+\frame{
+\frametitle{Ensemble averages}
+For an ensemble of $N$ independent paths, the sample mean converges to $\mu t$.
+\begin{center}
+\includegraphics[height=6cm]{./figs/ensemble-paths.pdf}
+\end{center}
+}
+
+\frame{
+\frametitle{Key observations}
+\bi
+\item The \red{ensemble average} grows linearly: $\ave{x(t)} = \mu t$
+\item Individual paths fluctuate around this mean
+\item Higher $\sigma$ increases the spread of paths
+\item The \red{time average} for a single path converges to $\mu t$ only as $t \to \infty$
+\ei
+\vf
+This distinction between ensemble and time averages is central to ergodicity economics.
+}
+
+\frame{
+\begin{center}
+{\huge{Thank you.}}
+\vspace{1cm}
+\end{center}
+}
+
+\end{document}
