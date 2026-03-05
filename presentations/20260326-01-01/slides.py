@@ -1,9 +1,8 @@
 """
-Custom interactive app slides for this presentation.
+Slide deck definition for this presentation.
 
-Defines app-slide functions, the APP_SLIDES dict, and a custom
-build_slides() that interleaves the demo slide at the midpoint
-of the PDF deck.
+APP_SLIDES maps keys to interactive Streamlit slide functions.
+SLIDES defines the ordering of PDF pages and app slides.
 """
 
 import streamlit as st
@@ -36,31 +35,17 @@ def app_slide_demo() -> None:
     plt.close(fig)
 
 
-# Map keys to app-slide functions
 APP_SLIDES: dict = {
     "demo": app_slide_demo,
 }
 
 
 # ---------------------------------------------------------------------------
-# Custom slide ordering — interleave the demo slide at the midpoint
+# Slide ordering — each entry is ("pdf", page_index) or ("app", key)
 # ---------------------------------------------------------------------------
-def build_slides(pdf_page_count: int, app_slides: dict) -> list[tuple[str, int | str]]:
-    """Insert the interactive demo slide halfway through the PDF pages."""
-    n = pdf_page_count
-    mid = max(1, n // 2)
-
-    slides: list[tuple[str, int | str]] = []
-
-    # First half of PDF pages
-    for i in range(mid):
-        slides.append(("pdf", i))
-
-    # Inline app slide
-    slides.append(("app", "demo"))
-
-    # Second half of PDF pages
-    for i in range(mid, n):
-        slides.append(("pdf", i))
-
-    return slides
+SLIDES: list = [
+    ("pdf", 0),         # title page
+    ("app", "demo"),    # interactive sine-wave demo
+    ("pdf", 1),         # wealth vs. time figure
+    ("pdf", 2),         # thank you / Galton board
+]

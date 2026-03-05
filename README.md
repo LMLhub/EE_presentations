@@ -15,7 +15,8 @@ EE_presentations/
 ├── presentation.py            # Streamlit presentation viewer
 ├── build.sh                   # Compile LaTeX → PDF
 ├── shared/
-│   ├── preamble.tex           # Shared Beamer macros & theme
+│   ├── preamble.tex           # Shared Beamer macros, theme & logos
+│   ├── logos/                 # LML logo images (sidebar + full)
 │   ├── plotting/              # Shared matplotlib styling & utilities
 │   │   ├── __init__.py
 │   │   └── base.py
@@ -103,9 +104,8 @@ Streamlit slides (see next section). If omitted, the deck is pure PDF.
 
 ### 4 — Add interactive Streamlit slides
 
-The shared `presentation.py` viewer automatically shows all PDF pages
-followed by any interactive app slides. To add app slides, create a
-`slides.py` in your presentation folder:
+Slides are a mix of PDF pages and live Streamlit apps. To add an
+interactive slide, create a `slides.py` in your presentation folder:
 
 **Step 1** — write a function:
 
@@ -124,8 +124,20 @@ APP_SLIDES: dict = {
 }
 ```
 
-The viewer will show all PDF pages first, then each app slide in the
-order they appear in the dict.
+**Step 3** — define the deck order in `SLIDES`:
+
+```python
+SLIDES: list = [
+    ("pdf", 0),         # PDF page 1 (0-based)
+    ("pdf", 1),         # PDF page 2
+    ("pdf", 2),         # PDF page 3
+    ("app", "mine"),    # your interactive slide
+    ("pdf", 3),         # PDF page 4
+]
+```
+
+Each entry is either `("pdf", page_index)` (0-based) or `("app", key)`.
+If `SLIDES` is not defined, all PDF pages are shown in order.
 
 ---
 
@@ -160,7 +172,8 @@ See `presentations/example-figs/` for a complete working example.
 |---|---|
 | `presentations/*/main.tex` | LaTeX / Beamer source for each talk |
 | `presentations/*/slides.py` | Slide deck definition (app slides + ordering) |
-| `shared/preamble.tex` | Shared macros & Beamer theme |
+| `shared/preamble.tex` | Shared macros, Beamer theme & logo definitions |
+| `shared/logos/` | LML logo images (auto-included via preamble) |
 | `shared/plotting/` | Shared matplotlib styling & utilities |
 | `shared/figure-config.yaml` | Default figure-generation config template |
 | `build.sh` | Compile a presentation: `./build.sh presentations/<name>` |
