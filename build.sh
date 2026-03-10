@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # Usage: ./build.sh presentations/20260326-01-01
-PRES_DIR="${1:?Usage: ./build.sh <presentation-folder>}"
+PRES_DIR="$(cd "${1:?Usage: ./build.sh <presentation-folder>}" && pwd)"
 REPO_ROOT="$(cd "$(dirname "$0")" && pwd)"
 
 if [[ ! -f "$PRES_DIR/main.tex" ]]; then
@@ -20,6 +20,6 @@ pdflatex -interaction=nonstopmode main.tex
 pdflatex -interaction=nonstopmode main.tex
 
 echo "==> Cleaning up ..."
-rm -f main.{aux,log,nav,out,snm,toc,vrb}
+rm -f "$PRES_DIR/main."{aux,log,nav,out,snm,toc,vrb}
 
 echo "==> Done: $PRES_DIR/main.pdf"
