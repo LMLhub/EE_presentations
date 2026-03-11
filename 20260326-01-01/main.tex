@@ -1,6 +1,6 @@
 \input{./../shared/preamble.tex}
 
-\title[\insertlogo\\]{\Large{\bf An Introduction to Ergodicity Economi}}
+\title[\insertlogo\\]{\Large{\bf An Introduction to Ergodicity Economics, Part I}}
 
 \author{
 {\bf Ole Peters }
@@ -11,25 +11,117 @@
 \hspace{-.5cm}\lmlfulllogo
 
 \vspace{1cm}
-LML --  19 June 2018 \\
+26 March 2026\\
 }
 
 
 \begin{document}
 
 \frame{
-\begin{picture}(300,200)(-20,20)
-\put(0,40){\includegraphics[width=6.1cm]{./../shared/An_Introduction_to_Ergodicity_Economics_front.png}}
+\begin{picture}(300,250)(0,20)
+\put(60,20){\includegraphics[width=5.5cm]{./../shared/An_Introduction_to_Ergodicity_Economics_front.png}}
 \end{picture}
 }
+\section{Scope of the book}
 
+\frame{{Long-term growth rates}
+Postulate that agents maximize wealth.
+
+Twist: not expected wealth but real wealth over time.
+\begin{center}
+Ergodicity is broken\newline $\to$ expected wealth $\neq$ real wealth over time.
+\end{center}
+}
+
+
+\section{Coin tosses}
+\frame{{1.1, p.2: The game}
+
+\bi
+\item<1->
+The infamous coin toss
+\only<2-4>{
+    \bi
+\item<2-4> 
+p.2
+\begin{picture}(300,100)(0,20)
+\put(0,20){\includegraphics[width=8.5cm]{./figs/pdf/the_game.png}}
+\end{picture}
+
+\item<3-4>
+discrete form of Geometric Brownian Motion (GBM): applies to all of finance theory. 
+\item<4>
+multiplicativity: evolution, life, investing, learning, growing.
+\ei}
+\item<5->
+The leveraged coin toss: only gamble with fraction $l$ of your wealth.
+\item<6->
+The cooperating coin toss: pool and share with others.
+\item<7->
+The social coin toss: pool and share a bit with others.
+\ei
+}
+
+\frame{{Chapter 2, p.9: Averages}
+
+\begin{picture}(300,150)(0,0)
+\put(0,0){\includegraphics[width=8.5cm]{./figs/pdf/ergodic_grid.pdf}}
+\end{picture}
+
+}
+
+\section{Ergodicities}
+
+\frame{{Chapter 3, p.25: Ergodicity}
+\begin{picture}(300,100)(0,20)
+\put(0,20){\includegraphics[width=8.5cm]{./figs/pdf/hogwash.png}}
+\end{picture}
+}
 
 \frame{
-\begin{picture}(300,200)(-20,20)
-\put(0,40){\includegraphics[width=6.1cm]{./figs/ga_x_mul.pdf}}
-\end{picture}
+Philosophy: keep the text light. 
+
+Relevant ergodic problem: expected value $\neq$ time average.
+
+But there's 150 years of detailed theory behind this.
 }
 
+\frame{{Ergodic hierarchy}
+
+Ergodicity means
+\bi
+\item<1->
+Metric transitivity
+\only<2>{
+
+Dynamical sytem: $(X, F, \mu, T)$
+
+For any sets $A, B \in F$, there exists an $n$ such that  $\mu(T^{-n}(A)\cap B)>0$.
+
+It follows that if $A$ satisfies $T^{-1}(A)=A$, then either $\mu(A)=1$ or $\mu(A)=0$.
+}
+\item<3->[$\to$]
+Equality of distributions
+\item<3->
+[$\to$]
+Equality of averages
+\ei
+}
+
+\frame{{Chapter 4, p.34: Models}
+    More tools.
+
+    \bi
+    \item
+    Brownian motion
+    \item
+    Stochastic differential equations
+    \item
+    \Ito calculus
+    \item
+    Geometric Brownian motion
+    \ei
+}
 
 
 \frame{
@@ -37,7 +129,7 @@ LML --  19 June 2018 \\
 \begin{center}
 {\huge{Thank you.}}
 
-\includegraphics[height=5cm]{./figs/time_trajectory.pdf}\\
+\includegraphics[height=5cm]{./figs/pdf/time_trajectory.pdf}\\
 \vspace{.3cm}
 \end{center}
 
