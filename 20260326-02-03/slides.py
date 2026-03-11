@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 # App slide functions
 # ---------------------------------------------------------------------------
 def app_slide_inequality() -> None:
-    """Interactive Geometric Brownian motion with adjustable drift and variance."""
+    """Figure 8.5, with adjustable population size drift and variance."""
     
     color_red = plt.rcParams['axes.prop_cycle'].by_key()['color'][3]
     color_green = plt.rcParams['axes.prop_cycle'].by_key()['color'][2]
@@ -23,7 +23,7 @@ def app_slide_inequality() -> None:
     color_yellow = plt.rcParams['axes.prop_cycle'].by_key()['color'][1]
     color_grey = plt.rcParams['axes.prop_cycle'].by_key()['color'][7]
 
-    st.subheader("Brownian Motion with Drift")
+    st.subheader("Finite ensemble of GBM trajectories")
 
     col1, col2, col3 = st.columns(3)
     with col1:
@@ -31,7 +31,7 @@ def app_slide_inequality() -> None:
     with col2:
         sigma = st.slider("Volatility (σ)", 0.0, 2.0, 0.4, 0.01)
     with col3:
-        n_paths = st.slider("Population (N)", 1, 500, 10, 10)
+        n_paths = st.slider("Population (N)", 1, 500, 100, 10)
 
     n_steps = 500
     dt = 1
@@ -76,7 +76,7 @@ def app_slide_inequality() -> None:
     ax.set_yscale('log')
     ax.legend(loc="upper left", bbox_to_anchor=(1, 1))
     #ax.legend(loc="upper left")
-    ax.grid(True, alpha=0.3)
+    ax.grid(False)
     st.pyplot(fig)
     plt.close(fig)
 
