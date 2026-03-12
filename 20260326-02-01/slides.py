@@ -27,11 +27,11 @@ def app_slide_leverage() -> None:
     col1, col2, col3 = st.columns(3)
     with col1:
         mu_s = st.slider("Drift (μ_s)", -0.10, 0.30, 0.05, 0.01)
-        sigma_s = st.slider("Volatility (σ_s)", 0.1, 3.0, 0.5, 0.01)
+        sigma_s = st.slider("Volatility (σ_s)", 0.0, 1.0, 0.4, 0.01)
     with col2:
-        mu_r = st.slider("Drift (μ_r)", -0.1, 0.30, 0.03, 0.01)
+        mu_r = st.slider("Drift (μ_r)", -0.10, 0.30, 0.03, 0.01)
     with col3:
-        leverage = st.slider("Levegare (l)", -2.0, 3.0, 0.5, 0.1)
+        leverage = st.slider("Leverage (l)", -2.0, 3.0, 0.5, 0.1)
     
     n_steps = 500
     dt = 0.1
@@ -79,9 +79,12 @@ def app_slide_leverage() -> None:
     for i in range(n):
         tagr[i] = mu_r + l_linspace[i] * mu_e - l_linspace[i]**2 * 0.5 * sigma_s**2
     
+    # Plot relationship between leverage and growth rate
     ax[1].plot(l_linspace, tagr, color = color_grey )
+    ax[1].scatter(leverage, mu_r + leverage * mu_e - leverage**2 * 0.5 * sigma_s**2, color = color_blue )
+    
     ax[1].set_xlabel("Leverage, $l$")
-    ax[1].set_ylabel("$Growth rate, g$")
+    ax[1].set_ylabel("Growth rate, $g$")
     
     
     st.pyplot(fig)
