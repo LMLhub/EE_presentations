@@ -22,37 +22,112 @@
 \put(60,20){\includegraphics[width=5.5cm]{./../shared/An_Introduction_to_Ergodicity_Economics_front.png}}
 \end{picture}
 }
+
+\frame{
+\begin{picture}(300,250)(0,0)
+\put(10,20){\includegraphics[width=9cm]{./figs/pdf/contents.png}}
+\end{picture}
+}
+
+\frame{
+\begin{picture}(300,250)(0,0)
+\put(10,20){\includegraphics[width=9cm]{./figs/pdf/contents_tools.png}}
+\end{picture}
+}
+
+
 \section{Scope of the book}
 
-\frame{{Long-term growth rates}
-Postulate that agents maximize wealth.
+\frame{{Long-term growth}
 
-Twist: not expected wealth but real wealth over time.
+\begin{center}
+\begin{center}
+\tikz\node[draw=red,line width=2pt,rounded corners=4pt,inner sep=6pt]{Axiom: Agents maximize wealth.};
+\end{center}
+\end{center}
+
+\underline{Twist:} not expected wealth but real wealth over time.
+\vspace{1cm}
+
+Interesting because
 \begin{center}
 Ergodicity is broken\newline $\to$ expected wealth $\neq$ real wealth over time.
 \end{center}
 }
 
-
-\section{Coin tosses}
-\frame{{1.1, p.2: The game}
+\frame{{Why the fuss?}
 
 \bi
-\item<1->
-The infamous coin toss
-\only<2-4>{
-    \bi
-\item<2-4> 
-p.2
-\begin{picture}(300,100)(0,20)
-\put(0,20){\includegraphics[width=8.5cm]{./figs/pdf/the_game.png}}
-\end{picture}
+\item[]<1->
+``The economy is not ergodic.''
+\vspace{1cm}
+\item[]<2->
+\begin{center}
+{\huge ?}
+\end{center}
+\vspace{1cm}
+\item[]<3->
+Ergodicity $=$ property of mathematical models. 
+\item[]<4->
+We investigate {\it standard mathematical models} from economics.\newline 
+Finding: ergodicity is broken {\it there}.
+\item[$\to$]<5->
+Implication: standard analyses and results in economics are not valid. We re-do them.
+\ei
+}
 
-\item<3-4>
+\section{Coin tosses}
+
+\frame{{Coin tosses}
+\bi
+\item
+The infamous coin toss
+\item
+The leveraged coin toss
+\item
+The cooperating coin toss
+\item
+The social coin toss
+\ei
+}
+
+\frame{{The infamous coin toss}
+
+%Chapter 1.1, p.2
+\vspace{1cm}
+\begin{picture}(300,100)(0,20)
+\put(0,20){\includegraphics[width=9.5cm]{./figs/pdf/the_game.png}}
+\end{picture}
+}
+
+\frame{{The infamous coin toss}
+Two properties: 
+\bi
+\item
+1. Expected value $\ave{x(t+1)}=\frac{1}{2} (r_H x(t) + r_T x(t)= 1.05 x(t).$
+
+By induction, \underline{$\ave{x(t)}=x(0)\times 1.05^t.$}
+
+Per-round growth $g_{\ave{}}=1.05.$
+\vspace{1cm}
+\item
+2. Time-average growth $x(t)=x(0)\times \prod_{\tau=1}^t r_{\tau}=x(0)\times r_H^{n_H}\times r_T^{n_T}$.
+
+per-round growth $g_t=\left(\frac{x(t)}{x(0)}\right)^{1/t}=r_H^{n_H/t}\times r_T^{n_T/t}$
+
+long-time limit $\underline{g=\lim_{t\to\infty} r_H^{n_H/t}\times r_T^{n_T/t}=r_H^{1/2}\times r_T^{1/2}}\approx0.949$ 
+\ei
+}
+
+\frame{{The infamous coin toss}
+Comments:
+\bi
+\item<1->
 discrete form of Geometric Brownian Motion (GBM): applies to all of finance theory. 
-\item<4>
+\item<2->
 multiplicativity: evolution, life, investing, learning, growing.
-\ei}
+\ei
+}
 \item<5->
 The leveraged coin toss: only gamble with fraction $l$ of your wealth.
 \item<6->
@@ -62,8 +137,9 @@ The social coin toss: pool and share a bit with others.
 \ei
 }
 
-\frame{{Chapter 2, p.9: Averages}
+\frame{{Averages}
 
+Chapeter 2, p.9:
 \begin{picture}(300,150)(0,0)
 \put(0,0){\includegraphics[width=8.5cm]{./figs/pdf/ergodic_grid.pdf}}
 \end{picture}
@@ -86,15 +162,26 @@ Relevant ergodicity problem: expected value $\neq$ time average.
 But there's 150 years of detailed theory behind this.
 }
 
-\frame{{Ergodic hierarchy}
+\frame{{Dynamical systems}
 
+Dynamical sytem: $(X, F, \mu, T)$
+
+Mental image: 
+$X = $ all possible identities $x_i$ (you, me; this dice, that dice...). 
+$F = $ coarse-graining: any identity is infinitely fine-grained and particular. Interesting statements can be made about collections $A\in X$ of identities (men, women; six-sided dice, dodecahedral dice...). 
+$\mu$ size of a collection, $\mu(A)$
+$T = $ time passing. Identities change in time as $T^n(A)$. These changes don't affect the size of the collection, $\mu(T^{-1}A)=\mu(A)$. 
+
+Mathematically, each entity marches through time deterministically. But that's not physically visible. Think of $x_i$ as deeply hidden and unobservable, ``the true you.'' But we can make measurements on $x_i$ ``how tall are you?''
+}
+
+\frame{{Ergodic hierarchy}
 Ergodicity means
 \bi
 \item<1->
 Metric transitivity
 \only<2>{
     ``Any differences are transitory.''
-    Dynamical sytem: $(X, F, \mu, T)$
     
     For any sets $A, B \in F$, there exists an $n$ such that  $\mu(T^{-n}(A)\cap B)>0$ (mixing).
     
@@ -104,7 +191,7 @@ Metric transitivity
 Equality of distributions
 
 \only<3>{
-    ``In the long run, measurements on two systems produce the same values equally often.''
+    ``In the long run, measurements in any two systems show the same values equally often.''
 }
 \item<4->
 [$\to$]
