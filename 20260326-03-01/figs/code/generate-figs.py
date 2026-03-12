@@ -86,12 +86,14 @@ def main():
     n_steps = 1000
 
     from plots import plot_farmers_fable, plot_farmers_fable_individual
-    fig, ax = plot_farmers_fable(g, r, n_paths, n_steps)
+    fig, ax = plt.subplots(figsize=(9, 4))
+    fig, ax = plot_farmers_fable(g, r, n_paths, n_steps, fig, ax)
     fig, ax = apply_tweaks(config, fig, ax)
     plt.savefig(figs_folder / "farmers_fable.pdf", bbox_inches="tight")
     plt.close()
 
-    fig, ax = plot_farmers_fable_individual(g, r, n_paths, n_steps)
+    fig, ax = plt.subplots(figsize=(9, 4))
+    fig, ax = plot_farmers_fable_individual(g, r, n_paths, n_steps, fig, ax)
     fig, ax = apply_tweaks(config, fig, ax)
     plt.savefig(figs_folder / "farmers_fable_individual.pdf", bbox_inches="tight")
     plt.close()

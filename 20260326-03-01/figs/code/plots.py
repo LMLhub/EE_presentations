@@ -19,7 +19,8 @@ def g_cooperative(g,r):
    return np.sqrt(g*np.sqrt(g**2 - r**2))
 
 
-def plot_farmers_fable(g: float, r: float, n_paths: int, n_steps: int) -> plt.Figure:
+def plot_farmers_fable(g: float, r: float, n_paths: int, n_steps: int,
+                       fig: plt.Figure, ax: plt.Axes) -> plt.Figure:
   # Plot some trajectories of the farmer's fable
   X1 = np.zeros((n_paths, n_steps))
   X2 = np.zeros((n_paths, n_steps))
@@ -27,6 +28,8 @@ def plot_farmers_fable(g: float, r: float, n_paths: int, n_steps: int) -> plt.Fi
   steps =np.linspace(1.0, n_steps+1, n_steps)
   gbar2 = g_cooperative(g,r)
   MLtrajectory = [100*gbar2**(n-1) for n in steps]
+  gbar1 = g_individual(g,r)
+  ML_individual_trajectory = [100*gbar1**(n-1) for n in steps]
   for n in range(n_paths):
     outcomes1 = np.random.choice([g+r, g-r], size=n_steps, p=[0.5, 0.5])
     outcomes2 = np.random.choice([g+r, g-r], size=n_steps, p=[0.5, 0.5])
@@ -36,30 +39,32 @@ def plot_farmers_fable(g: float, r: float, n_paths: int, n_steps: int) -> plt.Fi
       X1[n, t] = X1[n, t-1] * 0.5*(outcomes1[t-1] + outcomes2[t-1])
       X2[n, t] = X1[n, t]
 
-  fig, ax = plt.subplots(figsize=(9, 4))
   for n in range(n_paths):
     if n == 1:
        L = "A/B trajectories"
     else:
        L=None
     ax = tplot(steps, X1[n,:], tlin, tlog, ax, xticks='linear',
-               yticks='log', label = L, color="green", alpha=0.5)
+               yticks='log', label = L, color="blue", alpha=0.5)
 
   ax = tplot(steps, MLtrajectory, tlin, tlog, ax, xticks='linear',
-             yticks='log', label = r"$\bar{g}_\text{coop}^t$", color="red", lw=2)
+             yticks='log', label = r"$\bar{g}_\text{coop}^t$", color="green", lw=2)
+  ax = tplot(steps, ML_individual_trajectory, tlin, tlog, ax, xticks='linear',
+             yticks='log', label = r"$\bar{g}_\text{indiv}^t$", color="red", lw=2)
 
   # Turn on legend
-  ax.legend(loc="upper left")
+  ax.legend(loc="best")
   # Label axes
   ax.set_xlabel('steps, t')
   ax.set_ylabel(r"wealth, $X_t$")
   # Set x axis range
   ax.set_xlim([0,n_steps])
-  ax.set_ylim([-7,50])
+  #ax.set_ylim([-7,50])
   ax.set_title("With pooling and sharing")
   return fig, ax
 
-def plot_farmers_fable_individual(g: float, r: float, n_paths: int, n_steps: int) -> plt.Figure:
+def plot_farmers_fable_individual(g: float, r: float, n_paths: int, n_steps: int,
+                                  fig: plt.Figure, ax: plt.Axes) -> plt.Figure:
   # Plot some trajectories of the farmer's fable
   X1 = np.zeros((n_paths, n_steps))
   X2 = np.zeros((n_paths, n_steps))
@@ -76,7 +81,6 @@ def plot_farmers_fable_individual(g: float, r: float, n_paths: int, n_steps: int
       X1[n, t] = X1[n, t-1] * outcomes1[t-1]
       X2[n, t] = X2[n, t-1] * outcomes2[t-1]
 
-  fig, ax = plt.subplots(figsize=(9, 4))
   for n in range(n_paths):
     if n == 1:
        L1 = "A trajectories"
@@ -93,12 +97,12 @@ def plot_farmers_fable_individual(g: float, r: float, n_paths: int, n_steps: int
              yticks='log', label = r"$\bar{g}_\text{indiv}^t$", color="red", lw=2)
 
   # Turn on legend
-  ax.legend(loc="lower left")
+  ax.legend(loc="best")
   # Label axes
   ax.set_xlabel('steps, t')
   ax.set_ylabel(r"wealth, $X_t$")
   # Set x axis range
   ax.set_xlim([0,n_steps])
-  ax.set_ylim([-100,10])
+  #ax.set_ylim([-100,10])
   ax.set_title("Without pooling and sharing")
   return fig, ax
