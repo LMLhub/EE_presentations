@@ -279,9 +279,18 @@ def app_slide_redistribution() -> None:
     with col1:
         st.markdown('<p style="font-size:30px; margin-bottom:0">Tax / redistribution fraction τ</p>',
                     unsafe_allow_html=True)
-        tau = st.slider("tau", -.1, 0.1, 0.0, 0.01, label_visibility="collapsed")
-        st.markdown(f'<p style="font-size:28px; margin-top:0; color:#555;">τ = {tau:.2f}</p>',
-                    unsafe_allow_html=True)
+        tau_min, tau_max = -0.1, 0.1
+        tau = st.slider("tau", tau_min, tau_max, 0.0, 0.01, label_visibility="collapsed")
+        sub1, sub2, sub3 = st.columns([1, 2, 1])
+        with sub1:
+            st.markdown(f'<p style="font-size:30px; color:#999;">{tau_min:.2f}</p>',
+                        unsafe_allow_html=True)
+        with sub2:
+            st.markdown(f'<p style="font-size:30px; text-align:center; color:#555;">τ = {tau:.2f}</p>',
+                        unsafe_allow_html=True)
+        with sub3:
+            st.markdown(f'<p style="font-size:30px; color:#999; text-align:right;">{tau_max:.2f}</p>',
+                        unsafe_allow_html=True)
     with col2:
         st.write("")
         run = st.button("Run")

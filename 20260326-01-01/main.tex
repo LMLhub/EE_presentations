@@ -81,7 +81,7 @@ The social coin toss: pool and share a bit with others.
 \frame{
 Philosophy: keep the text light. 
 
-Relevant ergodic problem: expected value $\neq$ time average.
+Relevant ergodicity problem: expected value $\neq$ time average.
 
 But there's 150 years of detailed theory behind this.
 }
@@ -93,18 +93,25 @@ Ergodicity means
 \item<1->
 Metric transitivity
 \only<2>{
-
-Dynamical sytem: $(X, F, \mu, T)$
-
-For any sets $A, B \in F$, there exists an $n$ such that  $\mu(T^{-n}(A)\cap B)>0$.
-
-It follows that if $A$ satisfies $T^{-1}(A)=A$, then either $\mu(A)=1$ or $\mu(A)=0$.
+    ``Any differences are transitory.''
+    Dynamical sytem: $(X, F, \mu, T)$
+    
+    For any sets $A, B \in F$, there exists an $n$ such that  $\mu(T^{-n}(A)\cap B)>0$ (mixing).
+    
+    Or, equivalently, if $A$ satisfies $T^{-1}(A)=A$, then either $\mu(A)=1$ or $\mu(A)=0$ (only trivial invariant sets).
 }
 \item<3->[$\to$]
 Equality of distributions
-\item<3->
+
+\only<3>{
+    ``In the long run, measurements on two systems produce the same values equally often.''
+}
+\item<4->
 [$\to$]
 Equality of averages
+\only<4>{
+    ``Averaging over time is equivalent to averaging over the ergodic ensemble.''
+    }
 \ei
 }
 
