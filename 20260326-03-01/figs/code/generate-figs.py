@@ -76,8 +76,26 @@ def main():
     plt.savefig(figs_folder / "ensemble-paths.pdf", bbox_inches="tight")
     plt.close()
 
+
+
+    # ---- Figure 2: Farmers fable  ----
+    # Set parameter values for the farmer's fable
+    g = np.sqrt(2.0)
+    r = 2.0/np.sqrt(3.0)
+    n_paths = 10
+    n_steps = 1000
+
+    from plots import plot_farmers_fable, plot_farmers_fable_individual
+    fig, ax = plot_farmers_fable(g, r, n_paths, n_steps)
+    fig, ax = apply_tweaks(config, fig, ax)
+    plt.savefig(figs_folder / "farmers_fable.pdf", bbox_inches="tight")
+    plt.close()
+
+    fig, ax = plot_farmers_fable_individual(g, r, n_paths, n_steps)
+    fig, ax = apply_tweaks(config, fig, ax)
+    plt.savefig(figs_folder / "farmers_fable_individual.pdf", bbox_inches="tight")
+    plt.close()
+
     print("Figures saved to", config["figures folder"])
-
-
 if __name__ == "__main__":
     main()

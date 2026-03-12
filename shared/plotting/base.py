@@ -95,7 +95,9 @@ def calculate_axis_ticks(ax, cz, mode='log', axis='y'):
 
     elif mode == 'linear':
         # This is for a linear scale
-        print("calculate_axis_ticks(): mode = 'linear' mode not implemented yet!")
+        # print("calculate_axis_ticks(): mode = 'linear' mode not implemented yet!")
+        # Use existing tick since it's usually OK for linear!
+        pass
     elif mode == 'uniform':
         # This is for uniformly spaced ticks on arbitrarily transformed axis
         print("calculate_axis_ticks(): mode = 'uniform' not implemented yet!")
