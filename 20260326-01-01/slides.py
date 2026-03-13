@@ -353,12 +353,34 @@ APP_SLIDES: dict = {
 # ---------------------------------------------------------------------------
 # Slide ordering — each entry is ("pdf", page_index) or ("app", key)
 # ---------------------------------------------------------------------------
+def pdf_pages(spec) -> list[tuple[str, int]]:
+    """Expand a PDF page spec into a list of ("pdf", index) tuples.
+
+    spec can be:
+      - an int          -> single page, e.g. pdf_pages(0)
+      - a "start-end"   -> inclusive range, e.g. pdf_pages("0-4")
+      - a list mixing the above, e.g. pdf_pages([0, "3-5", 8])
+    Page indices are 0-based.
+    """
+    if isinstance(spec, list):
+        result = []
+        for item in spec:
+            result.extend(pdf_pages(item))
+        return result
+    if isinstance(spec, str) and "-" in spec:
+        start, end = spec.split("-")
+        return [("pdf", i) for i in range(int(start), int(end) + 1)]
+    return [("pdf", int(spec))]
+
+
 SLIDES: list = [
-    ("pdf", 0),             # title page
-#    ("pdf", 1),             # wealth vs. time figure
+    *pdf_pages("0-14"),           
     ("app", "coin-toss"),       # Peters coin toss
+    *pdf_pages("15-18"),           
     ("app", "leverage"),        # leveraged coin toss
+    *pdf_pages("19-20"),           
     ("app", "cooperation"),     # cooperating coin toss
+    *pdf_pages("21-22"),           
     ("app", "redistribution"),  # tax and redistribute
-#    ("pdf", 2),             # thank you / Galton board
+    *pdf_pages("23-47"),              # thank you / Galton board
 ]
