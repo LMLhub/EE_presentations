@@ -59,20 +59,27 @@ Ergodicity is broken\newline $\to$ expected wealth $\neq$ real wealth over time.
 
 \bi
 \item[]<1->
+\begin{center}
 ``The economy is not ergodic.''
-\vspace{1cm}
+\end{center}
+\vspace{.5cm}
 \item[]<2->
 \begin{center}
-{\huge ?}
+{\Huge ?}
 \end{center}
-\vspace{1cm}
+\vspace{.5cm}
 \item[]<3->
 Ergodicity $=$ property of mathematical models. 
+\vspace{.5cm}
+
 \item[]<4->
-We investigate {\it standard mathematical models} from economics.\newline 
-Finding: ergodicity is broken {\it there}.
-\item[$\to$]<5->
-Implication: standard analyses and results in economics are not valid. We re-do them.
+Look at {\it standard models} in economics, find ergodicity broken {\it there}.
+\vspace{.5cm}
+
+\item[]<5->
+Implication: standard analyses need re-doing.
+
+$\to$ Different worldview.
 \ei
 }
 
@@ -81,7 +88,8 @@ Implication: standard analyses and results in economics are not valid. We re-do 
 \frame{{Coin tosses}
 \bi
 \item
-The infamous coin toss
+\only<1>{The infamous coin toss}
+\only<2>{{\bf The infamous coin toss}}
 \item
 The leveraged coin toss
 \item
@@ -103,19 +111,23 @@ The social coin toss
 \frame{{The infamous coin toss}
 Two properties: 
 \bi
-\item
-1. Expected value $\ave{x(t+1)}=\frac{1}{2} (r_H x(t) + r_T x(t)= 1.05 x(t).$
+\item<2->
+1. Expected value \newline
+$\ave{x(t+1)}=\frac{1}{2} \left(r_H x(t) + r_T x(t)\right)= 1.05 x(t).$
 
-By induction, \underline{$\ave{x(t)}=x(0)\times 1.05^t.$}
+By induction, $\ave{x(t)}=x(0)\times 1.05^t.$
 
-Per-round growth $g_{\ave{}}=1.05.$
+Per-round growth \underline{$g_{\ave{}}=1.05.$}
 \vspace{1cm}
-\item
-2. Time-average growth $x(t)=x(0)\times \prod_{\tau=1}^t r_{\tau}=x(0)\times r_H^{n_H}\times r_T^{n_T}$.
+\item<3->
+2. Time-average growth\newline 
+$x(t)=x(0) \prod_{\tau=1}^t r_{\tau}=x(0) r_H^{n_H} r_T^{n_T}$.
 
-per-round growth $g_t=\left(\frac{x(t)}{x(0)}\right)^{1/t}=r_H^{n_H/t}\times r_T^{n_T/t}$
+per-round growth $g=\left(\frac{x(t)}{x(0)}\right)^{1/t}=r_H^{n_H/t} r_T^{n_T/t}$
 
-long-time limit $\underline{g=\lim_{t\to\infty} r_H^{n_H/t}\times r_T^{n_T/t}=r_H^{1/2}\times r_T^{1/2}}\approx0.949$ 
+long-time limit $\lim_{t\to\infty} r_H^{n_H/t} r_T^{n_T/t}=r_H^{1/2} r_T^{1/2}$
+\newline
+\underline{$g_t\approx0.949$} 
 \ei
 }
 
@@ -128,51 +140,84 @@ discrete form of Geometric Brownian Motion (GBM): applies to all of finance theo
 multiplicativity: evolution, life, investing, learning, growing.
 \ei
 }
-\item<5->
-The leveraged coin toss: only gamble with fraction $l$ of your wealth.
-\item<6->
-The cooperating coin toss: pool and share with others.
-\item<7->
-The social coin toss: pool and share a bit with others.
+
+\frame{{Coin tosses}
+\bi
+\item
+The infamous coin toss
+\item
+\only<1,3->{The leveraged coin toss}
+\only<2>{{\bf The leveraged coin toss}}
+\item
+\only<1-3,5->{The cooperating coin toss}
+\only<4>{{\bf The cooperating coin toss}}
+\item
+\only<1-5>{The social coin toss}
+\only<6>{{\bf The social coin toss}}
 \ei
 }
 
+
 \frame{{Averages}
 
-Chapeter 2, p.9:
+\uncover<2->{
 \begin{picture}(300,150)(0,0)
 \put(0,0){\includegraphics[width=8.5cm]{./figs/pdf/ergodic_grid.pdf}}
 \end{picture}
-
+Chapter 2, p.9:
+}
 }
 
 \section{Ergodicities}
 
-\frame{{Chapter 3, p.25: Ergodicity}
-\begin{picture}(300,100)(0,20)
-\put(0,20){\includegraphics[width=8.5cm]{./figs/pdf/hogwash.png}}
-\end{picture}
-}
-
-\frame{
+\frame{{Ergodicity}
+\bi
+\item[]<2->
 Philosophy: keep the text light. 
+\vspace{1cm}
+\item[]<3->
+Simple ergodicity problem:\newline
 
-Relevant ergodicity problem: expected value $\neq$ time average.
-
-But there's 150 years of detailed theory behind this.
+\hspace{1.5cm}expected value $\neq$ time average.
+\vspace{1cm}
+\item[]<4->
+But $\approx$150 years of theory behind this.
+\ei
 }
 
 \frame{{Dynamical systems}
 
+\uncover<2->{
 Dynamical sytem: $(X, F, \mu, T)$
+\vspace{.5cm}}
 
-Mental image: 
-$X = $ all possible identities $x_i$ (you, me; this dice, that dice...). 
-$F = $ coarse-graining: any identity is infinitely fine-grained and particular. Interesting statements can be made about collections $A\in X$ of identities (men, women; six-sided dice, dodecahedral dice...). 
-$\mu$ size of a collection, $\mu(A)$
-$T = $ time passing. Identities change in time as $T^n(A)$. These changes don't affect the size of the collection, $\mu(T^{-1}A)=\mu(A)$. 
+\uncover<3->{
+    \underline{Mental image:} 
+    }
+\bi
+\item[]<4->
+$X = $ all possible identities $x_i$ (you, me; this dice, that dice...).\newline 
+\item[]<5->
+$F = $ coarse-graining: any $x_i$ infinitely particular. Make statements about collections $A\in X$ of identities (men, women; six-sided dice, dodecahedral dice...). \newline
+\item[]<6->
+$\mu$ size of a collection, $\mu(A)$\newline
+\item[]<7->
+$T = $ time passing. Identities change according to $T^n(A)$. These changes don't affect the size of the collection, $\mu(T^{-1}A)=\mu(A)$. \newline
+\ei
+\vspace{.5cm}
+}
 
-Mathematically, each entity marches through time deterministically. But that's not physically visible. Think of $x_i$ as deeply hidden and unobservable, ``the true you.'' But we can make measurements on $x_i$ ``how tall are you?''
+\frame{{Dynamical systems}
+\bi
+\item<1->
+Mathematically, each entity marches through time deterministically. 
+\item<2->
+But that's not physically visible. 
+\item<3->
+Think of $x_i$ as deeply hidden and unobservable, ``the true you.'' 
+\item<4->
+We don't know the true you, but we can measure some things ``how tall are you?''
+\ei
 }
 
 \frame{{Ergodic hierarchy}
@@ -180,41 +225,30 @@ Ergodicity means
 \bi
 \item<1->
 Metric transitivity
-\only<2>{
-    ``Any differences are transitory.''
+
+\uncover<2>{
+    ``any differences are transitory.''
     
     For any sets $A, B \in F$, there exists an $n$ such that  $\mu(T^{-n}(A)\cap B)>0$ (mixing).
+    \vspace{.3cm}
+
+    Equivalently, ``everything always changes.'
     
-    Or, equivalently, if $A$ satisfies $T^{-1}(A)=A$, then either $\mu(A)=1$ or $\mu(A)=0$ (only trivial invariant sets).
+    If $A$ satisfies $T^{-1}(A)=A$, then either $\mu(A)=1$ or $\mu(A)=0$ (only trivial invariant sets).
 }
 \item<3->[$\to$]
 Equality of distributions
 
-\only<3>{
+\uncover<4>{
     ``In the long run, measurements in any two systems show the same values equally often.''
 }
-\item<4->
+\item<5-7>
 [$\to$]
 Equality of averages
-\only<4>{
+\uncover<6>{
     ``Averaging over time is equivalent to averaging over the ergodic ensemble.''
     }
 \ei
-}
-
-\frame{{Chapter 4, p.34: Models}
-    More tools.
-
-    \bi
-    \item
-    Brownian motion
-    \item
-    Stochastic differential equations
-    \item
-    \Ito calculus
-    \item
-    Geometric Brownian motion
-    \ei
 }
 
 
