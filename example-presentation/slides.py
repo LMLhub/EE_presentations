@@ -63,11 +63,28 @@ APP_SLIDES: dict = {
 # ---------------------------------------------------------------------------
 # Slide ordering — each entry is ("pdf", page_index) or ("app", key)
 # ---------------------------------------------------------------------------
+def pdf_pages(spec) -> list[tuple[str, int]]:
+    """Expand a PDF page spec into a list of ("pdf", index) tuples.
+
+    spec can be:
+      - an int          -> single page, e.g. pdf_pages(0)
+      - a "start-end"   -> inclusive range, e.g. pdf_pages("0-4")
+      - a list mixing the above, e.g. pdf_pages([0, "3-5", 8])
+    Page indices are 0-based.
+    """
+    if isinstance(spec, list):
+        result = []
+        for item in spec:
+            result.extend(pdf_pages(item))
+        return result
+    if isinstance(spec, str) and "-" in spec:
+        start, end = spec.split("-")
+        return [("pdf", i) for i in range(int(start), int(end) + 1)]
+    return [("pdf", int(spec))]
+
+
 SLIDES: list = [
-    ("pdf", 0),             # title page
-    ("pdf", 1),             # Brownian motion with drift figure
-    ("pdf", 2),             # ensemble averages figure
-    ("pdf", 3),             # key observations
-    ("app", "brownian"),    # interactive Brownian motion
-    ("pdf", 4),             # thank you
+    *pdf_pages("0-3"),          # title page … key observations
+    ("app", "brownian"),        # interactive Brownian motion
+    *pdf_pages(4),              # thank you
 ]
