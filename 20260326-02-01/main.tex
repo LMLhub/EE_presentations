@@ -1,12 +1,12 @@
 \input{./../shared/preamble.tex}
 
-\title[\insertlogo\\]{\Large{\bf Example Presentation}}
+\title[\insertlogo\\]{\Large{\bf An Introduction to Ergodicity Economics: Markets (I)}}
 
 \author{
-{\bf EE Presentations}
+{\bf Emilie Rosenlund Soysal}
 }
 
-\date{}
+\date{2026-03-26}
 
 
 \begin{document}
@@ -14,35 +14,85 @@
 \frame{\titlepage}
 
 \frame{
-\frametitle{Brownian motion with drift}
-A particle following Brownian motion with drift $\mu$ and volatility $\sigma$ satisfies
-\be
-  dx = \mu \, dt + \sigma \, dW\,.
-\ee
-The figure below shows three sample paths with different drift values.
-\begin{center}
-\includegraphics[height=5cm]{./figs/pdf/brownian-paths.pdf}
-\end{center}
-}
-
-\frame{
-\frametitle{Ensemble averages}
-For an ensemble of $N$ independent paths, the sample mean converges to $\mu t$.
-\begin{center}
-\includegraphics[height=6cm]{./figs/pdf/ensemble-paths.pdf}
-\end{center}
-}
-
-\frame{
-\frametitle{Key observations}
+\frametitle{Markets}
+Economic agents can maximise their wealth over time by maximising the 
+time-average growth rate of the wealth.
+\vspace{1cm}
 \bi
-\item The \red{ensemble average} grows linearly: $\ave{x(t)} = \mu t$
-\item Individual paths fluctuate around this mean
-\item Higher $\sigma$ increases the spread of paths
-\item The \red{time average} for a single path converges to $\mu t$ only as $t \to \infty$
+\item What does that mean for the portfolio choice?
+  \bi \item Optimal leverage
+  \ei
+\vspace{1cm}
+\item What does that mean for the way markets organise?
+  \bi \item Leverage efficiency
+  \ei
 \ei
-\vf
-This distinction between ensemble and time averages is central to ergodicity economics.
+}
+
+\frame{
+\frametitle{From the cointoss to GBM}
+  Make the time steps infinitesimally small and scale appropriately:
+\be
+  dx = x(\mu \, dt + \sigma \, dW\,)
+\ee
+\bi
+  \item Drift: $\mu$
+  \item Volatility: $\sigma$
+\ei
+
+\begin{figure}[H]
+\fbox{
+  \parbox{6cm}{
+  Multiplicative dynamics: \\
+  Ensemble average growth rate, $r$: $\mu$ \\
+  Time average growth rate, $g$: $\mu - \frac{\sigma^2}{2}$
+  }
+}
+\end{figure}
+}
+
+\frame{
+\frametitle{Portfolio choice}
+  Assume there are only two assets available
+  \bi
+    \item Risk-free asset:     
+    \be 
+    dx_r = x_r \, \mu_r \, dt 
+    \ee
+    \item Risky asset (stock):
+    \be
+        dx_s = x_s \, ( \mu_s \, dt + \sigma_s \, dW)
+    \ee
+        
+  \ei
+  \vspace{1cm}
+  Portfolio problem: Set the relative share of wealth allocated to the stock 
+  \bi
+    \item Leverage, $l$
+  \ei
+  Wealth dynamic:
+  \be
+    dx = x(((1-l)\,\mu_r + l \,\mu_s )\, dt + l \, \sigma_s \, dW)
+  \ee
+  \bi
+    \item Drift: $ \mu_r + l \, \mu_e $,
+     where $\mu_e$ is the excess return, $\mu_s - \mu_r$
+    \item Volatility: $l \, \sigma_s$
+  \ei
+}
+
+\frame{
+\frametitle{Optimal leverage}
+  Wealth dynamic:
+  \be
+    dx = x((\mu_r + l \,\mu_e )\, dt + l \, \sigma_s \, dW\,.)
+  \ee
+  Time average growth rate: $g = \mu_r + l \, \mu_e - l^2  \,\frac{\sigma_s^2}{2}$ 
+  
+  Maximise $g$ with respect to $l$:
+  \be
+    l_{opt} = \frac{\mu_e}{\sigma_s^2}
+  \ee
 }
 
 \frame{
