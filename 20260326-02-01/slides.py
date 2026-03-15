@@ -39,7 +39,7 @@ def app_slide_leverage() -> None:
 
     with col1:
         st.markdown("Leverage")
-        leverage = st.slider("Leverage (l)", -1.0, 3.0, 0.2, 0.1)
+        leverage = st.slider("Leverage (l)", 0.0, 3.0, 0.2, 0.1)
         st.markdown("Risky asset")
         mu_s = st.slider("Drift (μ_s)", -0.10, 0.30, 0.20, 0.01)
         sigma_s = st.slider("Volatility (σ_s)", 0.0, 1.0, 0.4, 0.01)
@@ -88,7 +88,7 @@ def app_slide_leverage() -> None:
     
     #Plot 2
     n = 500
-    l_linspace = np.linspace(-1, 3,n)
+    l_linspace = np.linspace(0, 3,n)
     tagr = np.zeros(n)
     for i in range(n):
         tagr[i] = mu_r + l_linspace[i] * mu_e - l_linspace[i]**2 * 0.5 * sigma_s**2
