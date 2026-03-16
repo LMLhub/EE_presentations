@@ -19,12 +19,27 @@ COLORS = {
     "IB":             plt.rcParams['axes.prop_cycle'].by_key()['color'][3],
  }  
 
+
 # ---------------------------------------------------------------------------
 # App slide functions
 # ---------------------------------------------------------------------------
 def app_slide_efficiency() -> None:
-    #st.set_page_config(page_title="Investor Simulation", layout="wide")
-    st.header("Leverage efficiency simulation")
+    st.markdown("""
+        <style>
+            .slide-title {
+                color: rgb(0, 70, 112);
+                font-size: 2rem !important;
+                font-weight: 400;
+                font-family: sans-serif !important;
+                margin-bottom: 3.5rem;
+                margin-top: 2.5rem;   
+            }
+        </style>
+    """, unsafe_allow_html=True)
+
+    st.set_page_config(layout="centered")
+    st.markdown('<div style="margin-top: 2rem;"></div>', unsafe_allow_html=True)
+    st.markdown('<p class="slide-title">Market simulation</p>', unsafe_allow_html=True)
     #st.markdown("Investor A uses optimal leverage ℓ = (μ_e)/σ², borrowing from B. "
     #            "The adaptive scenario raises r when A's time-average growth exceeds B's.")
 
@@ -283,7 +298,6 @@ SLIDES: list = [
     ("app", "efficient"),
     ("pdf", 6),        # Predictions
     ("pdf", 7),        # Equity premium puzzle
-    ("pdf", 8),        # Summary
-    ("pdf", 9),        # Thank you
+    ("pdf", 8),        # Thank you
     
 ]
