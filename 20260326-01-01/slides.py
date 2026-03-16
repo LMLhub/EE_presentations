@@ -53,9 +53,18 @@ def app_slide_coin_toss() -> None:
     with col1:
         st.markdown('<p style="font-size:30px; margin-bottom:0">Number of rounds</p>',
                     unsafe_allow_html=True)
-        n_rounds = st.slider("Number of rounds", 10, 1000, 200, 10, label_visibility="collapsed")
-        st.markdown(f'<p style="font-size:28px; margin-top:0; color:#555;">{n_rounds}</p>',
-                    unsafe_allow_html=True)
+        nr_min, nr_max = 10, 1000
+        n_rounds = st.slider("Number of rounds", nr_min, nr_max, 200, 10, label_visibility="collapsed")
+        sub1, sub2, sub3 = st.columns([1, 2, 1])
+        with sub1:
+            st.markdown(f'<p style="font-size:20px; color:#999;">{nr_min}</p>',
+                        unsafe_allow_html=True)
+        with sub2:
+            st.markdown(f'<p style="font-size:28px; text-align:center; color:#555;">{n_rounds}</p>',
+                        unsafe_allow_html=True)
+        with sub3:
+            st.markdown(f'<p style="font-size:20px; color:#999; text-align:right;">{nr_max}</p>',
+                        unsafe_allow_html=True)
     with col2:
         st.write("")  # vertical alignment spacer
         run = st.button("Run")
@@ -119,10 +128,19 @@ def app_slide_leverage() -> None:
     with col1:
         st.markdown('<p style="font-size:30px; margin-bottom:0">Leverage</p>',
                     unsafe_allow_html=True)
-        leverage = st.slider("Leverage", -3.0, 3.0, 1.0, 0.05,
+        lev_min, lev_max = -3.0, 3.0
+        leverage = st.slider("Leverage", lev_min, lev_max, 1.0, 0.05,
                              label_visibility="collapsed")
-        st.markdown(f'<p style="font-size:28px; margin-top:0; color:#555;">{leverage:.2f}</p>',
-                    unsafe_allow_html=True)
+        sub1, sub2, sub3 = st.columns([1, 2, 1])
+        with sub1:
+            st.markdown(f'<p style="font-size:20px; color:#999;">{lev_min:.1f}</p>',
+                        unsafe_allow_html=True)
+        with sub2:
+            st.markdown(f'<p style="font-size:28px; text-align:center; color:#555;">{leverage:.2f}</p>',
+                        unsafe_allow_html=True)
+        with sub3:
+            st.markdown(f'<p style="font-size:20px; color:#999; text-align:right;">{lev_max:.1f}</p>',
+                        unsafe_allow_html=True)
     with col2:
         st.write("")
         run = st.button("Run")
@@ -197,10 +215,19 @@ def app_slide_cooperation() -> None:
     with col1:
         st.markdown('<p style="font-size:30px; margin-bottom:0">Number of players</p>',
                     unsafe_allow_html=True)
-        n_players = st.slider("Number of players", 1, 10, 1, 1,
+        np_min, np_max = 1, 10
+        n_players = st.slider("Number of players", np_min, np_max, 1, 1,
                               label_visibility="collapsed")
-        st.markdown(f'<p style="font-size:28px; margin-top:0; color:#555;">{n_players}</p>',
-                    unsafe_allow_html=True)
+        sub1, sub2, sub3 = st.columns([1, 2, 1])
+        with sub1:
+            st.markdown(f'<p style="font-size:20px; color:#999;">{np_min}</p>',
+                        unsafe_allow_html=True)
+        with sub2:
+            st.markdown(f'<p style="font-size:28px; text-align:center; color:#555;">{n_players}</p>',
+                        unsafe_allow_html=True)
+        with sub3:
+            st.markdown(f'<p style="font-size:20px; color:#999; text-align:right;">{np_max}</p>',
+                        unsafe_allow_html=True)
     with col2:
         st.write("")
         run = st.button("Run")
@@ -374,13 +401,13 @@ def pdf_pages(spec) -> list[tuple[str, int]]:
 
 
 SLIDES: list = [
-    *pdf_pages("0-14"),           
+    *pdf_pages("0-11"),           
     ("app", "coin-toss"),       # Peters coin toss
-    *pdf_pages("15-18"),           
+    *pdf_pages("12-15"),           
     ("app", "leverage"),        # leveraged coin toss
-    *pdf_pages("19-20"),           
+    *pdf_pages("16-17"),           
     ("app", "cooperation"),     # cooperating coin toss
-    *pdf_pages("21-22"),           
+    *pdf_pages("18-19"),           
     ("app", "redistribution"),  # tax and redistribute
-    *pdf_pages("23-47"),              # thank you / Galton board
+    *pdf_pages("20-44"),              # thank you / Galton board
 ]

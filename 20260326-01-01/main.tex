@@ -46,42 +46,52 @@
 \end{center}
 \end{center}
 
-\underline{Twist:} not expected wealth but real wealth over time.
-\vspace{1cm}
+\uncover<2->{
+    \underline{Twist:} not expected wealth but real wealth over time.
+\vspace{1cm}}
 
-Interesting because
+\uncover<3->{Interesting because}
 \begin{center}
-Ergodicity is broken\newline $\to$ expected wealth $\neq$ real wealth over time.
+    \bi
+    \item<4->
+Ergodicity broken in standard models in economics
+\newline 
+$\to$ expected wealth $\neq$ real wealth over time.
+    \item<5->
+    Standard analyses in economics use expected wealth.
+    \item<6->
+    Re-do those analyses $\to$ different worldview.
+    \ei
 \end{center}
 }
 
-\frame{{Why the fuss?}
+% \frame{{Why the fuss?}
 
-\bi
-\item[]<1->
-\begin{center}
-``The economy is not ergodic.''
-\end{center}
-\vspace{.5cm}
-\item[]<2->
-\begin{center}
-{\Huge ?}
-\end{center}
-\vspace{.5cm}
-\item[]<3->
-Ergodicity $=$ property of mathematical models. 
-\vspace{.5cm}
+% \bi
+% \item[]<1->
+% \begin{center}
+% ``The economy is not ergodic.''
+% \end{center}
+% \vspace{.5cm}
+% \item[]<2->
+% \begin{center}
+% {\Huge ?}
+% \end{center}
+% \vspace{.5cm}
+% \item[]<3->
+% Ergodicity $=$ property of mathematical models. 
+% \vspace{.5cm}
 
-\item[]<4->
-Look at {\it standard models} in economics, find ergodicity broken {\it there}.
-\vspace{.5cm}
+% \item[]<4->
+% Look at {\it standard models} in economics, find ergodicity broken {\it there}.
+% \vspace{.5cm}
 
-\item[]<5->
-Implication: standard analyses need re-doing.
+% \item[]<5->
+% Implication: standard analyses need re-doing.
 
-$\to$ Different worldview.
-\ei
-}
+% $\to$ Different worldview.
+% \ei
+% }
 
 \section{Coin tosses}
 
@@ -106,30 +116,38 @@ The social coin toss
 \begin{picture}(300,100)(0,20)
 \put(0,20){\includegraphics[width=9.5cm]{./figs/pdf/the_game.png}}
 \end{picture}
+Chapter 1.1., p.2.
 }
 
-\frame{{The infamous coin toss}
-Two properties: 
-\bi
-\item<2->
-1. Expected value \newline
-$\ave{x(t+1)}=\frac{1}{2} \left(r_H x(t) + r_T x(t)\right)= 1.05 x(t).$
+% \frame{{The infamous coin toss}
+% Two properties: 
+% \bi
+% \item<2->
+% 1. Expected value
+% \vspace{.2cm}
 
-By induction, $\ave{x(t)}=x(0)\times 1.05^t.$
+% $\E{x(t+1)}=\frac{1}{2} \left(r_H x(t) + r_T x(t)\right)= 1.05 x(t).$
+% \vspace{.2cm}
 
-Per-round growth \underline{$g_{\ave{}}=1.05.$}
-\vspace{1cm}
-\item<3->
-2. Time-average growth\newline 
-$x(t)=x(0) \prod_{\tau=1}^t r_{\tau}=x(0) r_H^{n_H} r_T^{n_T}$.
+% By induction, $\E{x(t)}=x(0)\times 1.05^t.$
+% \vspace{.2cm}
 
-per-round growth $g=\left(\frac{x(t)}{x(0)}\right)^{1/t}=r_H^{n_H/t} r_T^{n_T/t}$
+% Per-round growth \underline{$g_{\ave{}}=1.05.$}
+% \vspace{1cm}
+% \item<3->
+% 2. Time-average growth
+% \vspace{.2cm}
 
-long-time limit $\lim_{t\to\infty} r_H^{n_H/t} r_T^{n_T/t}=r_H^{1/2} r_T^{1/2}$
-\newline
-\underline{$g_t\approx0.949$} 
-\ei
-}
+% $x(t)=x(0) \prod_{\tau=1}^t r_{\tau}=x(0) r_H^{n_H} r_T^{n_T}$.
+
+% per-round growth $g=\left(\frac{x(t)}{x(0)}\right)^{1/t}=r_H^{n_H/t} r_T^{n_T/t}$
+
+% long-time limit $\lim_{t\to\infty} r_H^{n_H/t} r_T^{n_T/t}=r_H^{1/2} r_T^{1/2}$
+% \vspace{.2cm}
+
+% \underline{$\gbar\approx0.949$} 
+% \ei
+% }
 
 \frame{{The infamous coin toss}
 Comments:
@@ -158,16 +176,6 @@ The infamous coin toss
 }
 
 
-\frame{{Averages}
-
-\uncover<2->{
-\begin{picture}(300,150)(0,0)
-\put(0,0){\includegraphics[width=8.5cm]{./figs/pdf/ergodic_grid.pdf}}
-\end{picture}
-Chapter 2, p.9:
-}
-}
-
 \section{Ergodicities}
 
 \frame{{Ergodicity}
@@ -187,6 +195,14 @@ But $\approx$150 years of theory behind this.
 
 \frame{{Dynamical systems}
 
+\only<1>{
+    Applications often use {\it stochastic} processes. 
+    
+    Ergodic theory written in {\it deterministic} dynamical systems.
+
+    Consistent because DS describe unobservable states.
+}
+
 \uncover<2->{
 Dynamical sytem: $(X, F, \mu, T)$
 \vspace{.5cm}}
@@ -196,13 +212,16 @@ Dynamical sytem: $(X, F, \mu, T)$
     }
 \bi
 \item[]<4->
-$X = $ all possible identities $x_i$ (you, me; this dice, that dice...).\newline 
+$X = $ state space: any thing, $x_i$, you can be.\newline 
 \item[]<5->
-$F = $ coarse-graining: any $x_i$ infinitely particular. Make statements about collections $A\in F$ of identities (children, Rear Admirals; dice showing a six, pink dice...). \newline
+$F = $ field of sets of $x_i$'s. Coarse-graining: you're special, I know little about you. 
+But I may know a set $A\in F$ which you're part of. \newline
 \item[]<6->
-$\mu$ size of a collection, $\mu(A)$\newline
+$\mu$ measure: tells the size of a set, $\mu(A)$.\newline
 \item[]<7->
-$T = $ time passing. Identities change according to $T^n(A)$. These changes don't affect the size of the collection, $\mu(T^{-1}A)=\mu(A)$. \newline
+$T = $ measure-preserving time evolution operator.\newline 
+Set $A$ today will be $T(A)$ tomorrow, then $T^2(A)$ \etc{}\newline
+Size of a set stays the same, $\mu(T^{-1}A)=\mu(A)$. \newline
 \ei
 \vspace{.5cm}
 }
@@ -210,13 +229,15 @@ $T = $ time passing. Identities change according to $T^n(A)$. These changes don'
 \frame{{Dynamical systems}
 \bi
 \item<1->
-Mathematically, each entity marches through time deterministically. 
+Mathematically, march through time deterministically. 
 \item<2->
-But that's not physically visible. 
+But not physically visible. 
 \item<3->
-Think of $x_i$ as deeply hidden and unobservable, ``the true you.'' 
+State $x_i$ deeply hidden, unobservable, ``the true you.'' 
 \item<4->
-We don't know the true you, but we can measure observables, ``how tall are you?''
+True you unknowable, but we can measure observables,\newline 
+$f(x_i)$: how rich are you? \newline
+$f(T(x_i))$: how rich tomorrow?
 \ei
 }
 
@@ -232,7 +253,7 @@ Metric transitivity
     For any sets $A, B \in F$, there exists an $n$ such that  $\mu(T^{-n}(A)\cap B)>0$ (mixing).
     \vspace{.3cm}
 
-    Equivalently, ``everything always changes.'
+    Equivalently, ``can't get stuck.''
     
     If $A$ satisfies $T^{-1}(A)=A$, then either $\mu(A)=1$ or $\mu(A)=0$ (only trivial invariant sets).
 }
@@ -240,16 +261,27 @@ Metric transitivity
 Equality of distributions
 
 \uncover<4>{
-    ``In the long run, measurements in any two systems show the same values equally often.''
+    ``Measure $f(x_i)$ for a long time; find values with the same frequency as for $f(x_j)$.''
 }
 \item<5-7>
 [$\to$]
-Equality of averages
+Equality of averages\newline
 \uncover<6>{
     ``Averaging over time is equivalent to averaging over the ergodic ensemble.''
     }
 \ei
 }
+
+\frame{{Averages}
+
+\uncover<2->{
+\begin{picture}(300,150)(0,0)
+\put(0,0){\includegraphics[width=8.5cm]{./figs/pdf/ergodic_grid.pdf}}
+\end{picture}
+Chapter 2, p.9:
+}
+}
+
 
 
 \frame{
