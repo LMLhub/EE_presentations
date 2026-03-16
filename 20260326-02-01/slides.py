@@ -33,18 +33,27 @@ COLORS = {
 def app_slide_leverage() -> None:
     """Interactive illustration of the role of leverage for a 
     portfolio return. Adjustable parameters: riskfree rate, drift and variance of stock."""
-    st.subheader("Optimal leverage")
+    st.markdown("""
+        <style>
+            .slide-title {
+                color: rgb(0, 70, 112);
+                font-size: 2rem !important;
+                font-weight: 400;
+                font-family: sans-serif;
+                margin-bottom: 3.5rem !important;
+            }
+    </style>
+    """, unsafe_allow_html=True)
+    st.markdown('<p class="slide-title">Optimal leverage</p>', unsafe_allow_html=True)
 
     col1, col2 = st.columns([2, 6])
 
     with col1:
-        st.markdown("Leverage")
-        leverage = st.slider("Leverage (l)", 0.0, 3.0, 0.2, 0.1)
-        st.markdown("Risky asset")
-        mu_s = st.slider("Drift (μ_s)", -0.10, 0.30, 0.20, 0.01)
-        sigma_s = st.slider("Volatility (σ_s)", 0.0, 1.0, 0.4, 0.01)
-        st.markdown("Safe asset")
-        mu_r = st.slider("Drift (μ_r)", -0.10, 0.30, 0.03, 0.01)
+        st.markdown("")
+        leverage = st.slider(rf"Leverage, $\ell$", 0.0, 3.0, 0.2, 0.1)
+        mu_s = st.slider("Risky asset - drift, $\mu_s$", -0.10, 0.30, 0.20, 0.01)
+        sigma_s = st.slider("Risky asset - volatility, $\sigma_s$", 0.0, 1.0, 0.4, 0.01)
+        mu_r = st.slider("Risk-free asset - drift, $\mu_r$", -0.10, 0.30, 0.03, 0.01)
     
     n_steps = 500
     dt = 0.1
@@ -66,18 +75,18 @@ def app_slide_leverage() -> None:
         path[j] = path[j-1] * np.exp((mu_r + leverage * mu_e - leverage**2 * 0.5 * sigma_s**2) * dt + leverage * sigma_s * np.sqrt(dt) * Z[j])
     
     #Panel 1
-    ax[0].plot(t, path, color=COLORS["blue"], label = rf"Trajectory, $l = {leverage}$", alpha=1, lw=0.8)
+    ax[0].plot(t, path, color=COLORS["blue"], label = rf"Trajectory, $\ell = {leverage}$", alpha=1, lw=0.8)
     
     # Theoretical expectation
     # ax.plot(t, S0*np.exp((mu_r + leverage * mu_e)*t), color= COLORS["red"], lw=2, ls="-", label="Expectation value")
 
     # Theoretical time average
     growth_rate = mu_r + leverage * mu_e - leverage**2 * 0.5 * sigma_s**2
-    ax[0].plot(t, S0*np.exp(growth_rate * t), color=COLORS["green"], lw=2, ls="-", label=rf"Exponential growth at time average growth rate, $l = {leverage}$")
+    ax[0].plot(t, S0*np.exp(growth_rate * t), color=COLORS["green"], lw=2, ls="-", label=rf"Exponential growth at time average growth rate, $\ell = {leverage}$")
 
     # Theoretical maximum time average
     lev_opt = mu_e / sigma_s**2
-    ax[0].plot(t, S0*np.exp((mu_r + lev_opt * mu_e - lev_opt**2 * 0.5 * sigma_s**2) * t), color=COLORS["grey"], lw=0.8, ls="--", label=rf"Exponential growth at optimal time average growth rate, $l = {lev_opt:.2f}$")
+    ax[0].plot(t, S0*np.exp((mu_r + lev_opt * mu_e - lev_opt**2 * 0.5 * sigma_s**2) * t), color=COLORS["grey"], lw=0.8, ls="--", label=rf"Exponential growth at optimal time average growth rate, $\ell = {lev_opt:.2f}$")
 
     ax[0].set_xlabel("Time, $t$")
     ax[0].set_ylabel("$x(t)$")
@@ -99,7 +108,7 @@ def app_slide_leverage() -> None:
 
     ax[1].scatter(leverage, growth_rate, color = COLORS["blue"] )
     
-    texts = [ax[1].text(leverage, growth_rate, rf"$l={leverage}, g = {growth_rate:.2f}$", color=COLORS["blue"], ha="center")]
+    texts = [ax[1].text(leverage, growth_rate, rf"$\ell={leverage}, g = {growth_rate:.2f}$", color=COLORS["blue"], ha="center")]
     adjust_text(
         texts,
         only_move={'points':'y', 'text':'xy'},
@@ -107,7 +116,7 @@ def app_slide_leverage() -> None:
         expand_objects=(1.0,1.0)
     )
     #ax[1].legend(loc="upper center", bbox_to_anchor=(0.5, -0.2) )
-    ax[1].set_xlabel("Leverage, $l$")
+    ax[1].set_xlabel("Leverage, $\ell$")
     ax[1].set_ylabel("Growth rate, $g$")
     
     # Collect all handles and labels from both axes
@@ -128,7 +137,26 @@ def app_slide_leverage() -> None:
 
 
 def app_slide_markowitz():
-    st.header("Markowitz Portfolio Theory")
+    st.markdown("""
+        <style>
+            .slide-title {
+                color: rgb(0, 70, 112);
+                font-size: 2rem !important;
+                font-weight: 400;
+                font-family: sans-serif;
+                margin-bottom: 3.5rem !important;
+            }
+            .subheader {
+                color: rgb(0, 70, 112);
+                font-size: 1rem !important;
+                font-weight: 600;
+                font-family: sans-serif;
+                margin-bottom: 1.5rem !important;
+                margin-top: 1.5rem !important;
+            }
+    </style>
+    """, unsafe_allow_html=True)
+    st.markdown('<p class="slide-title">Portfolio choice theory</p>', unsafe_allow_html=True)
 
     markdown1 = "Choose ANY combination of the tangency portfolio and the risk-free asset."
     markdown2 = "Choose the growth-rate optimal portfolio."
@@ -218,7 +246,7 @@ def app_slide_markowitz():
                     fontsize=9)
 
         with col1:
-            st.subheader("Markowitz/Sharpe:")
+            st.markdown('<p class="subheader">Markowitz / Sharpe:</p>', unsafe_allow_html=True)
             st.markdown(markdown1)
 
     if show_growth_rate:
@@ -246,9 +274,9 @@ def app_slide_markowitz():
         ax.clabel(cs, fmt=lambda x: f"g ={x:.2f}", fontsize=8, inline=True)         
 
         with col1:
-            st.subheader("Markowitz/Sharpe:")
+            st.markdown('<p class="subheader">Markowitz / Sharpe:</p>', unsafe_allow_html=True)
             st.markdown(markdown1)
-            st.subheader("Ergodicity Economics:")
+            st.markdown('<p class="subheader">Ergodicity Economics:</p>', unsafe_allow_html=True)
             st.markdown(markdown2)  
 
     if show_frontier:
@@ -277,8 +305,8 @@ def app_slide_markowitz():
         ax.scatter(asset_risks, asset_returns, color=COLORS["assets"], s=50, zorder=5, marker="x", label="Individual Assets")
         ax.text(0.27, 0.085, "Individual Assets", fontsize=9, color=COLORS["assets"])
           
-    ax.set_xlabel("Portfolio Risk (Standard Deviation)")
-    ax.set_ylabel("Expected Return")
+    ax.set_xlabel("Volatility, $\sigma$")
+    ax.set_ylabel("Drift, $\mu$")
     #ax.set_title("Markowitz Portfolio Theory", fontsize=14, fontweight="bold")
     ax.set_xlim(-0.01, sigma_max)
     ax.set_ylim(0.0, mu_max)
@@ -326,6 +354,7 @@ SLIDES: list = [
     ("pdf", 3),             # Portfolio problem
     ("pdf", 4),             # Optimal Portfolio
     ("app", "leverage"),    # interactive Brownian motion
+    ("pdf", 5),             # Optimal Portfolio
     ("app", "markowitz"),   # interactive Brownian motion
-    ("pdf", 5),             # thank you
+    ("pdf", 6),             # thank you
 ]

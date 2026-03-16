@@ -30,8 +30,8 @@ time-average growth rate of the wealth.
 }
 
 \frame{
-\frametitle{From the cointoss to GBM}
-  Make the time steps infinitesimally small and scale appropriately:
+\frametitle{Geometric Brownian Motion}
+  Geometric Brownian Motion (GBM) is the workhorse model of financial assets:
 \be
   dx = x(\mu \, dt + \sigma \, dW\,)
 \ee
@@ -43,7 +43,7 @@ time-average growth rate of the wealth.
 \begin{figure}[H]
 \fbox{
   \parbox{6cm}{
-  Multiplicative dynamics: \\
+  \textbf{Multiplicative dynamics:} \\
   Ensemble average growth rate, $r$: $\mu$ \\
   Time average growth rate, $g$: $\mu - \frac{\sigma^2}{2}$
   }
@@ -66,34 +66,51 @@ time-average growth rate of the wealth.
         
   \ei
   \vspace{1cm}
-  Portfolio problem: Set the relative share of wealth allocated to the stock 
-  \bi
-    \item Leverage, $l$
-  \ei
-  Wealth dynamic:
-  \be
-    dx = x(((1-l)\,\mu_r + l \,\mu_s )\, dt + l \, \sigma_s \, dW)
-  \ee
-  \bi
-    \item Drift: $ \mu_r + l \, \mu_e $,
-     where $\mu_e$ is the excess return, $\mu_s - \mu_r$
-    \item Volatility: $l \, \sigma_s$
-  \ei
+  \textbf{Portfolio problem:} Allocate wealth to each of the two assets. \\
+  Leverage, $\ell$, is the share of wealth allocated to the risky asset.
 }
 
 \frame{
 \frametitle{Optimal leverage}
   Wealth dynamic:
   \be
-    dx = x((\mu_r + l \,\mu_e )\, dt + l \, \sigma_s \, dW\,.)
+    dx = x((\mu_r + \ell \,\mu_e )\, dt + \ell \, \sigma_s \, dW\,)
   \ee
-  Time average growth rate: $g = \mu_r + l \, \mu_e - l^2  \,\frac{\sigma_s^2}{2}$ 
-  
-  Maximise $g$ with respect to $l$:
+  where  $\mu_e$ is the excess return, $\mu_s - \mu_r$.
+
+  The time average growth rate is
   \be
-    l_{opt} = \frac{\mu_e}{\sigma_s^2}
+    g = \mu_r + \ell \, \mu_e - \ell^2  \,\frac{\sigma_s^2}{2}
   \ee
+  Maximising $g$ with respect to $\ell$ gives us the
+ \begin{figure}[H]
+ \fbox{
+  \parbox{6cm}{
+  \textbf{Optimal leverage:} \\
+  \be
+    \ell_{opt} = \frac{\mu_e}{\sigma_s^2}
+  \ee
+  }
 }
+\end{figure}
+}
+
+\frame{
+\frametitle{Comparison to standard models}
+  How portfolio choice is usually taught:
+  \bi
+    \item Markowitz portfolio theory\\
+    Choose a mix between the tangency portfolio and the risk free asset.
+    \item Sharpe ratio\\
+    Choose the porfolio with the highest Sharpe ratio: $\frac{\mu-mu_r}{\sigma}
+  \ei
+  Standard theory recognises the trade-off between risk and return but offers no guidance on how to do the tradeoff
+  (optimal choice depends on risk preferences).
+  \vspace{1cm}
+  
+  Ergodicity Economics does!
+}
+
 
 \frame{
 \begin{center}
