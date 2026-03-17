@@ -1,12 +1,12 @@
 \input{../shared/preamble.tex}
 
-\title[\insertlogo\\]{\Large{\bf Cooperation}}
+\title[\insertlogo\\]{\Large{\bf Interactions and Cooperation}\\(Chapter 9)}
 
 \author{
-{\bf EE Presentations}
+{\bf Colm Connaughton\\ London Mathematical Laboratory}
 }
 
-\date{}
+\date{26 March 2026}
 
 
 \begin{document}
@@ -14,38 +14,91 @@
 \frame{\titlepage}
 
 \frame{
+\frametitle{The Farmers Fable }
+See:  \url{https://www.farmersfable.org/}
+
+Ann and Bill are farmers. 
+
+\begin{center}
+\includegraphics[width=0.75\textwidth]{figs/pdf/farmers-fable-1.png}
+\end{center}
+
+\vspace{-0.5cm}
+
+\begin{tabular}{ll}
+Good season: & Bad season:\\
+\includegraphics[height=3.0cm]{figs/pdf/farmer-bill-good-season.png} & \includegraphics[height=3.0cm]{figs/pdf/farmer-bill-bad-season.png}\\
+$X_{t+1} = (g+r)\, X_t$ & $X_{t+1} = (g-r)\, X_t$ 
+\end{tabular}
+}
+
+\frame{
 \frametitle{The Farmers Fable}
-2 Farmers Ann and Bill each.
-Each can have a good harvest ($g+r$) or a bad harvest ($g-r$) with equal probability.
-They have the option to pool and share their harvests.
+Ann and Bill have good and bad seasons independently with probability $\frac{1}{2}$.
 
+Working independently, their wealths each follow the coin toss dynamic:
+\begin{align*}
+X_{t+1} & = \left\{ 
+\begin{array}{ll}
+(g+r)\, X_t & \text{with probabilty }\frac{1}{2}\\
+(g-r)\, X_t & \text{with probabilty }\frac{1}{2}.
+\end{array}
+\right.
+\end{align*}
+Expected growth factor is $\mathbb{E}\left[ G \right]_\text{indiv}  =g$:
+\begin{align*}
+\mathbb{E}\left[W_t\right] &= W_0\, g^t
+\end{align*}
+Time averaged growth factor is $\bar{G}_\text{indiv} = \sqrt{g^2-r^2}$:
+\begin{align*}
+\text{ML}\left[W_t\right] &= W_0\left(\sqrt{g^2-r^2}\right)^t. 
+\end{align*}
 
 }
 
 \frame{
-\frametitle{Expected value analysis}
-Without cooperation:
-\begin{align*}
-\mathbb{E} [\text{Ann's harvest}] &= \frac{1}{2}(g+r) + \frac{1}{2}(g-r) = g \\
-\mathbb{E} [\text{Bill's harvest}] &= g
-\end{align*}
+\frametitle{Pooling and sharing}
+
+\begin{center}
+\includegraphics[width=0.75\textwidth]{figs/pdf/farmers-fable.png}
+\end{center}
+
+\vspace{-0.5cm}
+
+\begin{tabular}{ | l | c  | c  | }
+\hline
+Outcome & Growth factor & Probability\\
+\hline
+Both have bad seasons &  $g-r$ & $\frac{1}{4}$\\
+One good, one bad &  $g$  & $\frac{1}{2}$\\
+Both have good seasons &  $g+r$ & $\frac{1}{4}$\\
+\hline
+\end{tabular}
 }
 
 \frame{
-\frametitle{EE value analysis}
-Without cooperation each farmer experiences the coin-toss dynamics which
-gives  a time-averaged growth factor of:
+\frametitle{Expected value vs EE analysis}
+The expected growth factor per season is:
+
 \begin{align*}
-G_\text{indiv} &= \sqrt{(g+r)(g-r)} = \sqrt{g^2 - r^2}
+\mathbb{E}\left[ G \right]_\text{coop}  &= \frac{1}{4}\, (g-r)+ \frac{1}{2} \,g + \frac{1}{4}\,(g+r) = g = \mathbb{E}\left[ G \right]_\text{indiv} .
 \end{align*}
 
-With cooperation each farmer experiences  a time-averaged growth factor of:
+There is no benefit to pooling and sharing?
+
+\vspace{0.5cm}
+
+The time-averaged growth factor is:
 \begin{align*}
-G_\text{coop} &= \sqrt{g \sqrt{g^2 - r^2}}
+\bar{G}_\text{coop} &= \sqrt{g \sqrt{g^2 - r^2}}
 \end{align*}
 
-Can show that $G_\text{coop}  >  G_\text{indiv} $ for all allowed values of $g$ and $r$.
+Can show that $\bar{G}_\text{coop}  >  \bar{G}_\text{indiv} $ for all allowed values of $g$ and $r$.
+
+Pooling and sharing increases the growth rate.
+
 }
+
 
 
 \frame{
@@ -54,22 +107,55 @@ Choose $g=\sqrt{2}$, $r = \frac{2}{\sqrt{3}}$.
 
  $G_\text{indiv} <1$ but $G_\text{coop}  >1$
 
- Plot.
+\begin{center}
+\begin{tabular}{cc} 
+\includegraphics[width=0.45\textwidth]{figs/pdf/farmers_fable_individual.pdf}
+&
+\includegraphics[width=0.45\textwidth]{figs/pdf/farmers_fable.pdf}
+\end{tabular}
+\end{center}
 
-\bi
-\item The \red{ensemble average} grows linearly: $\ave{x(t)} = \mu t$
-\item Individual paths fluctuate around this mean
-\item Higher $\sigma$ increases the spread of paths
-\item The \red{time average} for a single path converges to $\mu t$ only as $t \to \infty$
-\ei
-\vf
-This distinction between ensemble and time averages is central to ergodicity economics.
+}
+
+
+\frame{
+\frametitle{Generalisation to $N$ members and continuum limit}
+Wealths $X_1(t)$, $X_2(t), \ldots X_N(t)$.
+
+Introduce random growth factors
+\begin{align*}
+g_i(t) = \mu\, \Delta t  + \sigma \Delta W_i(t)
+\end{align*}
+where  $\Delta W_i(t) \sim \mathcal{N}\left(0, \Delta t\right)$, independent.
+
+Each round with full pooling and sharing, each agent gets
+\begin{align*}
+\frac{1}{N} \sum_{i=1}^N g_i(t)\, X_i(t) &= \frac{1}{N} \sum_{i=1}^N \left( \mu\, \Delta t  + \sigma \Delta W_i(t) \right) \, X_i(t) \\
+&= \left( \mu \Delta t + \frac{\sigma}{N} \sum_{i=1}^N  \Delta W_i(t)\right) \, X_i(t)\\
+&=  \left( \mu \Delta t  + \frac{\sigma}{\sqrt{N}} \Delta W(t) \right)\, X_i(t)
+\end{align*}
+where $\Delta W(t) \sim \mathcal{N}\left(0, \Delta t\right)$. 
 }
 
 \frame{
-\frametitle{Generalisation to $N$ members}
-}
+\frametitle{Generalisation to $N$ members and continuum limit}
 
+Single representative agent:
+\begin{align*}
+X(t+\Delta t) &= X(t) + X(t) \,  \left( \mu \Delta t  + \frac{\sigma}{\sqrt{N}} \Delta W(t) \right)
+\end{align*}
+Continuum limit $(\Delta t \to 0)$:
+\begin{align*}
+dX(t) = X(t) \left( \mu \, dt + \frac{\sigma}{\sqrt{N}} \,dW_t\right)
+\end{align*}
+
+Time averaged growth rate is
+\begin{align*}
+\bar{g}^{(N)} &= \mu -\frac{\sigma^2}{2 N}.
+\end{align*}
+
+Larger cooperatives grow faster.
+}
 
 \frame{
 \frametitle{Heterogeneity}
@@ -81,19 +167,123 @@ The growth rate of the cooperative is
 \begin{align*}
 \bar{g}^{(N)} &= \frac{1}{N} \sum_{i=1}^N \left( \mu_i - \frac{\sigma_i^2}{2 N}\right)
 \end{align*}
+Cooperation is beneficial to individuals if $\bar{g}^{(N)} > \bar{g}_i $ for $i = 1\ldots N$.  This is not guaranteed.
 
+For example, if $N=2$, cooperation is beneficial if
+\begin{align*}
+\left|  \bar{g}_1 -  \bar{g}_2 \right| &< \frac{\sigma_1^2 + \sigma_2^2}{4}.
+\end{align*}
 }
 
 \frame{
 \frametitle{Correlated fluctuations}
+Also consider what happens when fluctuations $\Delta W_i(t)$ are correlated via correlation matrix
+\begin{align*}
+\rho_{ij} &= \left\{ 
+\begin{array}{ll}
+1 & \text{if $i =j$}\\
+\rho &\text{if $i \neq j$.}
+\end{array}
+\right.
+\end{align*}
+The growth rate of the cooperative is shown to be
+\begin{align*}
+\bar{g}^{(N)}(\rho) &= \mu -\frac{\sigma^2}{2 N} \left(1+(N-1)\rho\right).
+\end{align*}
+Cooperation benefit disappears as $\rho \to 1$.
+}
+
+
+\frame{
+\frametitle{Reallocation: partial pooling and sharing}
+Reallocating Geometric Brownian Motion:
+\begin{align*}
+d X_i & = X_i(t)\left( (\mu - \tau)\, dt + \sigma\,d W(t)\right) + \tau \langle X(t) \rangle_N
+\end{align*}
+where $ \langle X(t) \rangle_N$ denotes the finite ensemble average:
+\begin{align*}
+ \langle X(t) \rangle_N &= \frac{1}{N} \sum_{i=1}^{N} X_i(t).
+ \end{align*}
+
+\vspace{-0.5cm}
+
+\begin{columns}
+\begin{column}{0.4\textwidth}
+{\includegraphics[width=\textwidth]{./figs/pdf/positive_tau.pdf}}
+\end{column}
+\begin{column}{0.6\textwidth}
+\begin{itemize}
+\item All agents contribute to shared pot at rate $\tau$ and receive an equal share of the pot back.
+\item Wealth $x_i(t)$ can become negative.
+\item Can show that
+\begin{align*}
+ \langle X(t) \rangle_N &= X(0)\,e^{\mu\,t}.
+\end{align*}
+\end{itemize}
+\end{column}
+\end{columns}
 
 }
 
 \frame{
-\begin{center}
-{\huge{Thank you.}}
-\vspace{1cm}
-\end{center}
+\frametitle{Positive reallocation}
+Define rescaled wealth:
+\begin{align*}
+w_i(t) = \frac{X_i(t)}{X(0)\,e^{\mu\,t}}
+\end{align*}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+{\includegraphics[width=0.85\textwidth]{./figs/pdf/RGBM-rescaled-wealth.pdf}}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{itemize}
+\item If $\tau >0$ can show that $w_i(t)$ becomes stationary for large times
+\item Distribution of rescaled wealth is inverse gamma distributed:
+\begin{align*}
+P(w) &= \frac{(\zeta-1)^\zeta}{\Gamma(\zeta)} e^{-\frac{\zeta-1}{w}}\,w^{-(\zeta+1)}
+\end{align*}
+where $\zeta = 1 + \frac{2 \tau}{\sigma^2}$.
+\item Note that redistribution creates a power law tail.
+\end{itemize}
+\end{column}
+\end{columns}	
+
 }
+
+\frame{
+\frametitle{Negative reallocation}
+
+Empirical estimation of the $\tau$ parameter from US wealth data suggests that $\tau$ can be negative.
+
+\begin{columns}
+\begin{column}{0.5\textwidth}
+{\includegraphics[width=0.85\textwidth]{./figs/pdf/negative_tau.pdf}}
+\end{column}
+\begin{column}{0.5\textwidth}
+{\includegraphics[width=0.85\textwidth]{./figs/pdf/reallocation_rate.pdf}}
+\end{column}
+\end{columns}	
+
+Mathematically little is known about the negative $\tau$ regime other than simulations.
+}
+
+\frame{
+\frametitle{Take home messages}
+\begin{itemize}
+\item
+Cooperation in not surprising: pooling and sharing among homogeneous agents doesn't just reduce risk, it increases growth rates for all.
+\item 
+This does not imply a communist utopia: in a population of heterogeneous agents there are restrictions on cooperation benefits.
+\item
+Mechanism specifically relies on volatility reduction over time: no claim that this in the only mechanism for cooperation among self-interested individuals.
+\item
+Redistribution (partial pooling and sharing) creates power law tails in the relative wealth distribution.  There is a mismatch with the conventional interpretation of Pareto vs lognormal tails as measures of inequality.
+\item
+Negative redistribution is an empirically interesting regime and is poorly understood quantitatively.
+\end{itemize}
+
+}
+
+
 
 \end{document}
