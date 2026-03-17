@@ -55,16 +55,15 @@ def app_slide_coin_toss() -> None:
                     unsafe_allow_html=True)
         nr_min, nr_max = 10, 1000
         n_rounds = st.slider("Number of rounds", nr_min, nr_max, 200, 10, label_visibility="collapsed")
-        sub1, sub2, sub3 = st.columns([1, 2, 1])
-        with sub1:
-            st.markdown(f'<p style="font-size:20px; color:#999;">{nr_min}</p>',
-                        unsafe_allow_html=True)
-        with sub2:
-            st.markdown(f'<p style="font-size:28px; text-align:center; color:#555;">{n_rounds}</p>',
-                        unsafe_allow_html=True)
-        with sub3:
-            st.markdown(f'<p style="font-size:20px; color:#999; text-align:right;">{nr_max}</p>',
-                        unsafe_allow_html=True)
+        nr_frac = (n_rounds - nr_min) / (nr_max - nr_min)
+        st.markdown(
+            f'<div style="position:relative;height:36px;margin-top:-8px;">'
+            f'<span style="position:absolute;left:0;font-size:20px;color:#999;">{nr_min}</span>'
+            f'<span style="position:absolute;left:calc({nr_frac*100:.2f}% - {nr_frac*20:.2f}px + 10px);transform:translateX(-50%);font-size:28px;color:#555;white-space:nowrap;">{n_rounds}</span>'
+            f'<span style="position:absolute;right:0;font-size:20px;color:#999;">{nr_max}</span>'
+            f'</div>',
+            unsafe_allow_html=True
+        )
     with col2:
         st.write("")  # vertical alignment spacer
         run = st.button("Run")
@@ -131,16 +130,15 @@ def app_slide_leverage() -> None:
         lev_min, lev_max = -3.0, 3.0
         leverage = st.slider("Leverage", lev_min, lev_max, 1.0, 0.05,
                              label_visibility="collapsed")
-        sub1, sub2, sub3 = st.columns([1, 2, 1])
-        with sub1:
-            st.markdown(f'<p style="font-size:20px; color:#999;">{lev_min:.1f}</p>',
-                        unsafe_allow_html=True)
-        with sub2:
-            st.markdown(f'<p style="font-size:28px; text-align:center; color:#555;">{leverage:.2f}</p>',
-                        unsafe_allow_html=True)
-        with sub3:
-            st.markdown(f'<p style="font-size:20px; color:#999; text-align:right;">{lev_max:.1f}</p>',
-                        unsafe_allow_html=True)
+        lev_frac = (leverage - lev_min) / (lev_max - lev_min)
+        st.markdown(
+            f'<div style="position:relative;height:36px;margin-top:-8px;">'
+            f'<span style="position:absolute;left:0;font-size:20px;color:#999;">{lev_min:.1f}</span>'
+            f'<span style="position:absolute;left:calc({lev_frac*100:.2f}% - {lev_frac*20:.2f}px + 10px);transform:translateX(-50%);font-size:28px;color:#555;white-space:nowrap;">{leverage:.2f}</span>'
+            f'<span style="position:absolute;right:0;font-size:20px;color:#999;">{lev_max:.1f}</span>'
+            f'</div>',
+            unsafe_allow_html=True
+        )
     with col2:
         st.write("")
         run = st.button("Run")
@@ -218,16 +216,15 @@ def app_slide_cooperation() -> None:
         np_min, np_max = 1, 10
         n_players = st.slider("Number of players", np_min, np_max, 1, 1,
                               label_visibility="collapsed")
-        sub1, sub2, sub3 = st.columns([1, 2, 1])
-        with sub1:
-            st.markdown(f'<p style="font-size:20px; color:#999;">{np_min}</p>',
-                        unsafe_allow_html=True)
-        with sub2:
-            st.markdown(f'<p style="font-size:28px; text-align:center; color:#555;">{n_players}</p>',
-                        unsafe_allow_html=True)
-        with sub3:
-            st.markdown(f'<p style="font-size:20px; color:#999; text-align:right;">{np_max}</p>',
-                        unsafe_allow_html=True)
+        np_frac = (n_players - np_min) / (np_max - np_min)
+        st.markdown(
+            f'<div style="position:relative;height:36px;margin-top:-8px;">'
+            f'<span style="position:absolute;left:0;font-size:20px;color:#999;">{np_min}</span>'
+            f'<span style="position:absolute;left:calc({np_frac*100:.2f}% - {np_frac*20:.2f}px + 10px);transform:translateX(-50%);font-size:28px;color:#555;white-space:nowrap;">{n_players}</span>'
+            f'<span style="position:absolute;right:0;font-size:20px;color:#999;">{np_max}</span>'
+            f'</div>',
+            unsafe_allow_html=True
+        )
     with col2:
         st.write("")
         run = st.button("Run")
@@ -308,16 +305,15 @@ def app_slide_redistribution() -> None:
                     unsafe_allow_html=True)
         tau_min, tau_max = -0.1, 0.1
         tau = st.slider("tau", tau_min, tau_max, 0.0, 0.01, label_visibility="collapsed")
-        sub1, sub2, sub3 = st.columns([1, 2, 1])
-        with sub1:
-            st.markdown(f'<p style="font-size:30px; color:#999;">{tau_min:.2f}</p>',
-                        unsafe_allow_html=True)
-        with sub2:
-            st.markdown(f'<p style="font-size:30px; text-align:center; color:#555;">τ = {tau:.2f}</p>',
-                        unsafe_allow_html=True)
-        with sub3:
-            st.markdown(f'<p style="font-size:30px; color:#999; text-align:right;">{tau_max:.2f}</p>',
-                        unsafe_allow_html=True)
+        tau_frac = (tau - tau_min) / (tau_max - tau_min)
+        st.markdown(
+            f'<div style="position:relative;height:40px;margin-top:-8px;">'
+            f'<span style="position:absolute;left:0;font-size:30px;color:#999;">{tau_min:.2f}</span>'
+            f'<span style="position:absolute;left:calc({tau_frac*100:.2f}% - {tau_frac*20:.2f}px + 10px);transform:translateX(-50%);font-size:30px;color:#555;white-space:nowrap;">τ = {tau:.2f}</span>'
+            f'<span style="position:absolute;right:0;font-size:30px;color:#999;">{tau_max:.2f}</span>'
+            f'</div>',
+            unsafe_allow_html=True
+        )
     with col2:
         st.write("")
         run = st.button("Run")
