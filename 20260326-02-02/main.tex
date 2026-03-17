@@ -16,6 +16,13 @@
 %----------------2-----------------
 \frame{
 \frametitle{Markets}
+\begin{center}
+\includegraphics[height=7cm]{./contents_2.png}
+\end{center}
+}
+%----------------2-----------------
+\frame{
+\frametitle{Markets}
 Economic agents can maximise their wealth over time by maximising the 
 time-average growth rate of the wealth.
 \vspace{1cm}
@@ -33,12 +40,10 @@ time-average growth rate of the wealth.
 %----------------3-----------------
 \frame{
 \frametitle{Optimal leverage}
-For a portfolio consisting of one risky and one risk-free asset, the optimal share of wealth invested in the risky asset is:
-\be
-  \ell_{opt} = \frac{\mu_s-mu_r}{\sigma_s^2}
-\ee
-
-where $\mu_e$is the excess return $(\mu_s - \mu_r)$, and $\sigma_s^2$.
+For a portfolio consisting of one risky asset ($s$) and one risk-free asset ($r$), the optimal share of wealth invested in the risky asset is:
+\begin{align}
+  \ell_{opt} = \frac{\mu_s-\mu_r}{\sigma_s^2}
+\end{align}
 
 \begin{figure}[H]
 \fbox{
@@ -57,6 +62,7 @@ where $\mu_e$is the excess return $(\mu_s - \mu_r)$, and $\sigma_s^2$.
 
 \frame{
 \frametitle{Leverage efficiency}
+Why $\ell_{opt} = 1$?
 \bi
   \item Efficiency: \n
   It is impossible for an individual investor to beat the market simply by using leverage.
@@ -74,9 +80,12 @@ where $\mu_e$is the excess return $(\mu_s - \mu_r)$, and $\sigma_s^2$.
 
 \frame{
 \frametitle{Market simulation}
-Assume the market consist of two agents, \textcolor{mplblue}{$A$} and \textcolor{mplred}{$B$}, and one risky asset ($s$) with
-exogenous value following a GBM.
-Agents interact through debt contracts.
+The market consist of two agents, \textcolor{mplblue}{$A$} and \textcolor{mplred}{$B$}, 
+
+one risky asset ($s$: GBM with exogenous parameters $\mu_s, \sigma_s$)
+
+and one risk-free asset ($r$: endogenous drift $\mu_r$)
+
 \vf
 
 \begin{tikzpicture}[
@@ -91,7 +100,7 @@ Agents interact through debt contracts.
 % Steps
 \foreach \i/\txt in {
     0/{\textcolor{mplblue}{$A$} observes the risk-free rate, $\mu_r$, and the stock dynamic, $\mu_s$, $\sigma_s$},
-    1/{\textcolor{mplblue}{$A$} chooses its leverage, $\ell_A = \frac{\mu_s-mu_r}{\sigma_s^2}$},
+    1/{\textcolor{mplblue}{$A$} chooses its leverage, $\ell_A = \frac{\mu_s-\mu_r}{\sigma_s^2}$},
     2/{\textcolor{mplred}{$B$} accepts borrowing\,/\,lending at the risk-free rate according to \textcolor{mplblue}{$A$}'s needs.},
     3/{Portfolio outcomes are realised},
     4/{\textcolor{mplred}{$B$} adjusts the risk-free rate, $\mu_r$}
@@ -117,37 +126,68 @@ Agents interact through debt contracts.
 \frametitle{Market simulation}
 \textcolor{mplred}{$B$}'s rate setting rule:
 \bi
-  \item If \textcolor{mplred}{$B$}'s return was as good as \textcolor{mlpblue}{$A$}'s during $dt$: No action taken
-  \item If \textcolor{mplblue}{$A$} borrowed from \textcolor{mplred}{$B$}: Increase $\mu_r$
-  \item If \textcolor{mplred}{$B$} borrowed from \textcolor{mplblue}{$A$}: Decrease $\mu_r$
+  \item If \textcolor{mplred}{$B$}'s return was at least as good as \textcolor{mplblue}{$A$}'s during $dt$:
+  \bi 
+    \item Do nothing
+  \ei 
+  \item If \textcolor{mplred}{$B$}'s return was worse than \textcolor{mplblue}{$A$}'s during $dt$: 
+  \bi 
+    \item If \textcolor{mplblue}{$A$} borrowed from \textcolor{mplred}{$B$}: Increase $\mu_r$ with $d \mu $
+    \item If \textcolor{mplred}{$B$} borrowed from \textcolor{mplblue}{$A$}: Decrease $\mu_r$ with $d \mu $
+  \ei
 \ei
 \vf
+\textcolor{mplblue}{$A$} and \textcolor{mplred}{$B$} start out with the same wealth.
 }
 
 %---------------- 7 -----------------
+
 \frame{
 \frametitle{Predictions}
-Leverage efficiency implies:
-\be
-  \mu_s - \mu_r = \sigma_s^2 
-\ee
-Here figures 
+Does $\ell_{opt} = 1$ hold for real markets? 
 \vf
-
+\begin{center}
+  \includegraphics[height=5cm]{./figs/pdf/growth_vs_leverage_all.pdf}\\
+\end{center}
+{\tiny Figure 10.3 in Peters and Adamou (2025).
+   Confidence bands indicate two standard errors of the prediction,
+   where the standard error is $\sigma_{ \ell_{opt}(\Delta t)} = \frac{1}{\sigma_s \Delta t^{1/2}}$.
+   }
 }
+
 
 %---------------- 8 -----------------
 
 \frame{
 \frametitle{Equity Premium Puzzle}
-According to standard economic models (C-CAPM) the equity premium is too high!
+Standard economic theory cannot explain the high premimum on equity, but leverage efficiency can:
+\bi
+  \item $ ~3-10 \%$ in real life
+  \item $ ~0.1-0.5 \% $ with standard theory (CCAPM)
+  \item $ ~0.4-6.4 \% $ with optimal leverage ($s=$S\&P500 and $r =$ FED overnight interbank rate)
+\ei
 
-\vf
 
+Premium: difference in time average growth rate ($\epsilon$)
+\begin{align}
+\epsilon &= \bar{g}_s - \bar{g}_r \\
+        &= (\mu_s -\mu_r) - \frac{\sigma_s^2}{2} \\
+        &= \frac{\mu_s -\mu_r}{2}
+\end{align}
+using leverage efficiency $\ell_{opt}=1 \implies \mu_s - \mu_r = \sigma_s^2$ 
 }
 
 %---------------- 9 -----------------
+\frame{
+  \frametitle{Summary}
+  \bi
+  \item For a risky and risk-free asset, the growth-rate optimal leverage is $\ell_{opt} = \frac{\mu_s - \mu_r}{\sigma_s^2}$
+  \item Leverage efficient markets self-organise around $\ell_{opt} = 1$
+  \item Leverage efficiency predicts a fixed relationship between drift, volatility and risk premium, supported by real life data
+  \ei
+}
 
+%---------------- 10 -----------------
 \frame{
 \begin{center}
 {\huge{Thank you.}}
