@@ -108,7 +108,7 @@ def app_slide_leverage() -> None:
 
     ax[1].scatter(leverage, growth_rate, color = COLORS["blue"] )
     
-    texts = [ax[1].text(leverage, growth_rate, rf"$\ell={leverage}, g = {growth_rate:.2f}$", color=COLORS["blue"], ha="center")]
+    texts = [ax[1].text(leverage, growth_rate, rf"$\ell={leverage}, \bar g = {growth_rate:.2f}$", color=COLORS["blue"], ha="center")]
     adjust_text(
         texts,
         only_move={'points':'y', 'text':'xy'},
@@ -117,7 +117,7 @@ def app_slide_leverage() -> None:
     )
     #ax[1].legend(loc="upper center", bbox_to_anchor=(0.5, -0.2) )
     ax[1].set_xlabel("Leverage, $\ell$")
-    ax[1].set_ylabel("Growth rate, $g$")
+    ax[1].set_ylabel(rf"Growth rate, $\bar g$")
     
     # Collect all handles and labels from both axes
     handles, labels = [], []
@@ -180,7 +180,7 @@ def app_slide_markowitz():
     # --- Sidebar controls ---
     with col1:
         show_frontier = st.toggle("Efficient frontier", value=False)
-        show_riskfree = st.toggle("Risk free asset", value=False)
+        show_riskfree = st.toggle("Risk-free asset", value=False)
         show_CML = st.toggle("Capital Market Line", value=False)
         show_sharpe      = st.toggle("Sharpe ratio contour",       key="show_sharpe",      on_change=on_sharpe)
         show_growth_rate = st.toggle("Time-average growth rate contour",   key="show_growth_rate", on_change=on_growth)
@@ -350,11 +350,12 @@ APP_SLIDES: dict = {
 SLIDES: list = [
     ("pdf", 0),             # title page
     ("pdf", 1),             # Content of markets talks
-    ("pdf", 2),             # GBM
-    ("pdf", 3),             # Portfolio problem
-    ("pdf", 4),             # Optimal Portfolio
-    ("app", "leverage"),    # interactive Brownian motion
+    ("pdf", 2),             # Content of markets talks
+    ("pdf", 3),             # GBM
+    ("pdf", 4),             # Portfolio problem
     ("pdf", 5),             # Optimal Portfolio
+    ("app", "leverage"),    # interactive Brownian motion
+    ("pdf", 6),             # Optimal Portfolio
     ("app", "markowitz"),   # interactive Brownian motion
-    ("pdf", 6),             # thank you
+    ("pdf", 7),             # thank you
 ]

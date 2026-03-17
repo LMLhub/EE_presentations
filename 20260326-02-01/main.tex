@@ -12,6 +12,15 @@
 \begin{document}
 
 \frame{\titlepage}
+%-----------------------2 ----------------------
+\frame{
+\frametitle{Markets}
+\begin{center}
+\includegraphics[height=7cm]{./contents_2.png}
+\end{center}
+}
+
+%-----------------------3 ----------------------
 
 \frame{
 \frametitle{Markets}
@@ -29,27 +38,29 @@ time-average growth rate of the wealth.
 \ei
 }
 
+%----------------------- 3 ----------------------
+
 \frame{
 \frametitle{Geometric Brownian Motion}
   Geometric Brownian Motion (GBM) is the workhorse model of financial assets:
 \be
   dx = x(\mu \, dt + \sigma \, dW\,)
 \ee
-\bi
-  \item Drift: $\mu$
-  \item Volatility: $\sigma$
-\ei
+with drift, $\mu$, and volatility, $\sigma$.
 
+\vspace{1cm}
 \begin{figure}[H]
 \fbox{
-  \parbox{6cm}{
-  \textbf{Multiplicative dynamics:} \\
-  Ensemble average growth rate, $r$: $\mu$ \\
-  Time average growth rate, $g$: $\mu - \frac{\sigma^2}{2}$
+  \parbox{7cm}{
+  \vspace{0.2cm}\textbf{Multiplicative dynamics:} \\
+  
+  Ensemble average growth rate: $g_{\langle \rangle} = \mu$ \\
+  Time average growth rate: $\bar{g}$ = $\mu - \frac{\sigma^2}{2}$\\
   }
 }
 \end{figure}
 }
+%----------------------- 4 ----------------------
 
 \frame{
 \frametitle{Portfolio choice}
@@ -70,6 +81,8 @@ time-average growth rate of the wealth.
   Leverage, $\ell$, is the share of wealth allocated to the risky asset.
 }
 
+%----------------------- 5 ----------------------
+
 \frame{
 \frametitle{Optimal leverage}
   Wealth dynamic:
@@ -80,9 +93,9 @@ time-average growth rate of the wealth.
 
   The time average growth rate is
   \be
-    g = \mu_r + \ell \, \mu_e - \ell^2  \,\frac{\sigma_s^2}{2}
+    \bar{g} = \mu_r + \ell \, \mu_e - \ell^2  \,\frac{\sigma_s^2}{2}
   \ee
-  Maximising $g$ with respect to $\ell$ gives us the
+  Maximising $\bar{g}$ with respect to $\ell$ gives us the
  \begin{figure}[H]
  \fbox{
   \parbox{6cm}{
@@ -95,22 +108,25 @@ time-average growth rate of the wealth.
 \end{figure}
 }
 
+%----------------------- 6 ----------------------
+
 \frame{
 \frametitle{Comparison to standard models}
-  How portfolio choice is usually taught:
+  Portfolio choice is usually taught through
   \bi
-    \item Markowitz portfolio theory\\
-    Choose a mix between the tangency portfolio and the risk free asset.
-    \item Sharpe ratio\\
-    Choose the porfolio with the highest Sharpe ratio: $\frac{\mu-mu_r}{\sigma}
+    \item Markowitz portfolio theory:\\
+    Choose a mix between the tangency portfolio and the risk-free asset.
+    \item Sharpe ratio:\\
+    Choose the portfolio with the highest Sharpe ratio: $\frac{\mu_s-\mu_r}{\sigma_s}$
   \ei
-  Standard theory recognises the trade-off between risk and return but offers no guidance on how to do the tradeoff
+  Standard theory recognises the trade-off between risk and return but offers no guidance on how to do the trade-off
   (optimal choice depends on risk preferences).
   \vspace{1cm}
   
   Ergodicity Economics does!
 }
 
+%----------------------- 7 ----------------------
 
 \frame{
 \begin{center}
