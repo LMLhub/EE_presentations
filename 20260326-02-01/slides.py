@@ -33,8 +33,10 @@ COLORS = {
 def app_slide_leverage() -> None:
     """Interactive illustration of the role of leverage for a 
     portfolio return. Adjustable parameters: riskfree rate, drift and variance of stock."""
-    st.markdown("""
-        <style>
+    col0, col1 = st.columns([0.1, 8])
+    with col1:
+        st.markdown("""
+            <style>
             .slide-title {
                 color: rgb(0, 70, 112);
                 font-size: 2rem !important;
@@ -42,11 +44,11 @@ def app_slide_leverage() -> None:
                 font-family: sans-serif;
                 margin-bottom: 3.5rem !important;
             }
-    </style>
-    """, unsafe_allow_html=True)
-    st.markdown('<p class="slide-title">Optimal leverage</p>', unsafe_allow_html=True)
+            </style>
+            """, unsafe_allow_html=True)
+        st.markdown('<p class="slide-title">Optimal leverage</p>', unsafe_allow_html=True)
 
-    col1, col2 = st.columns([2, 6])
+    col0, col1, col2 = st.columns([0.1, 2, 6])
 
     with col1:
         st.markdown("")
@@ -137,6 +139,7 @@ def app_slide_leverage() -> None:
 
 
 def app_slide_markowitz():
+    
     st.markdown("""
         <style>
             .slide-title {
@@ -156,7 +159,10 @@ def app_slide_markowitz():
             }
     </style>
     """, unsafe_allow_html=True)
-    st.markdown('<p class="slide-title">Portfolio choice theory</p>', unsafe_allow_html=True)
+    
+    colA, colB = st.columns([0.1, 8])
+    with colB:
+        st.markdown('<p class="slide-title">Portfolio choice theory</p>', unsafe_allow_html=True)
 
     markdown1 = "Choose ANY combination of the tangency portfolio and the risk-free asset."
     markdown2 = "Choose the growth-rate optimal portfolio."
@@ -175,7 +181,7 @@ def app_slide_markowitz():
         if st.session_state.show_growth_rate:
             st.session_state.show_sharpe = False
 
-    col1, col2 = st.columns([2, 6])
+    col0, col1, col2 = st.columns([0.1, 2, 6])
 
     # --- Sidebar controls ---
     with col1:
@@ -246,7 +252,8 @@ def app_slide_markowitz():
                     fontsize=9)
 
         with col1:
-            st.markdown('<p class="subheader">Markowitz / Sharpe:</p>', unsafe_allow_html=True)
+            st.markdown('<p class="subheader">Markowitz and Sharpe</p>', unsafe_allow_html=True)
+            st.latex(r"\text{Sharpe} = \frac{\mu_e}{\sigma}")
             st.markdown(markdown1)
 
     if show_growth_rate:
@@ -274,10 +281,13 @@ def app_slide_markowitz():
         ax.clabel(cs, fmt=lambda x: f"g ={x:.2f}", fontsize=8, inline=True)         
 
         with col1:
-            st.markdown('<p class="subheader">Markowitz / Sharpe:</p>', unsafe_allow_html=True)
+            st.markdown('<p class="subheader">Markowitz and Sharpe:</p>', unsafe_allow_html=True)
+            st.latex(r"\text{Sharpe} = \frac{\mu_e}{\sigma}")
             st.markdown(markdown1)
             st.markdown('<p class="subheader">Ergodicity Economics:</p>', unsafe_allow_html=True)
             st.markdown(markdown2)  
+            st.latex(r"\ell_{opt} = \frac{\mu_e}{\sigma_s^2}")
+            
 
     if show_frontier:
 
@@ -349,13 +359,13 @@ APP_SLIDES: dict = {
 # ---------------------------------------------------------------------------
 SLIDES: list = [
     ("pdf", 0),             # title page
-    ("pdf", 1),             # Content of markets talks
+#   ("pdf", 1),             # Content of markets talks
     ("pdf", 2),             # Content of markets talks
     ("pdf", 3),             # GBM
     ("pdf", 4),             # Portfolio problem
     ("pdf", 5),             # Optimal Portfolio
     ("app", "leverage"),    # interactive Brownian motion
-    ("pdf", 6),             # Optimal Portfolio
+ #   ("pdf", 6),             # Optimal Portfolio
     ("app", "markowitz"),   # interactive Brownian motion
     ("pdf", 7),             # thank you
 ]
