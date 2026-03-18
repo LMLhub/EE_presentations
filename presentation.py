@@ -41,6 +41,11 @@ def _load_slides_module(pres_dir: Path):
     slides_file = pres_dir / "slides.py"
     if not slides_file.exists():
         return None
+    # Add the presentation directory to sys.path so that sub-packages
+    # (e.g. an 'interactive/' folder) are importable from slides.py.
+    pres_str = str(pres_dir.resolve())
+    if pres_str not in sys.path:
+        sys.path.insert(0, pres_str)
     spec = importlib.util.spec_from_file_location("slides", slides_file)
     mod = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(mod)
