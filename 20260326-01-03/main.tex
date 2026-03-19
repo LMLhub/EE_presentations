@@ -1,0 +1,221 @@
+\input{./../shared/preamble.tex}
+
+\title[\insertlogo\\]{\Large{\bf An Introduction to Ergodicity Economics, Part I}}
+
+\author{
+{\bf Ole Peters }
+}
+
+\date{
+%\vspace{0cm}\\
+\hspace{-.5cm}\lmlfulllogo
+
+\vspace{1cm}
+26 March 2026\\
+}
+
+
+\begin{document}
+
+\frame{
+\begin{picture}(300,250)(0,20)
+\put(60,20){\includegraphics[width=5.5cm]{./../shared/An_Introduction_to_Ergodicity_Economics_front.png}}
+\end{picture}
+}
+
+\frame{
+\begin{picture}(300,250)(0,0)
+\put(10,20){\includegraphics[width=9cm]{./../shared/contents_1.png}}
+\end{picture}
+}
+
+\frame{
+\begin{picture}(300,250)(0,0)
+\put(10,20){\includegraphics[width=9cm]{./figs/pdf/contents_risky.png}}
+\end{picture}
+}
+
+
+
+
+\frame{{Recap: deterministic growth}
+
+\bi
+\item[]<1->
+\be
+dx=f(x) d(\gamma t)
+\ee
+\item[]<2->
+\hspace{-1.7cm}
+\be
+\text{$\to$ linear growth of} \int_{x(t)}^{x(t+\Dt)} \frac{1}{f(x)}dx=\gamma \Dt.
+\ee
+\item[]<3->
+
+\be \text{Re-write as } v(x(t+\Dt))-v(x(t))=\gamma \Dt. \ee
+\item[]<4->
+
+\vspace{.5cm}
+Functional form of growth rate (extracts clock speed $\gamma$): \newline
+\be 
+g=\frac{\Dv}{\Dt}=\gamma.
+\ee
+\item[]<5->
+\vspace{.5cm}
+\underline{Behavioral protocol:} choose process with max $g$, outperform in the long run.
+\ei
+\vspace{.5cm}
+}
+
+
+\frame{{$v$-and-$x$ correspondence}
+
+Role of $v(x)$: linearizes $x$ in time.
+\vspace{1cm}
+
+Can find $x$ as $x=v^{(-1)}(\gamma t)$.
+}
+
+\frame{{Stochastic growth}
+Perturb deterministic growth consistently.
+\vspace{.5cm}
+\bi
+\item[]<2->
+Idea: add iid perturbation to linear process,
+\vspace{.2cm}
+
+$dv(x)=\gamma dt \hspace{.3cm} \rightarrow \hspace{.3cm} dv(x)=\gamma dt + \sigma dW.$
+\vspace{.5cm}
+
+\item[]<3->
+Then find $x(t)$ as before as $x=v^{(-1)}(\gamma t + \sigma dW)$
+\ei
+}
+
+\frame{
+\bi
+\item[]<1->
+Measure speed of $x(t)$ like before: 
+\vspace{.2cm}
+
+$g=\frac{\Dv}{\Dt}=\gamma+\sigma \frac{W(\Dt)}{\Dt}$.
+\vspace{.5cm}
+
+\item[]<2->
+Unlike before, $g$ is random, not constant in time.
+\vspace{.5cm}
+
+\item[]<3->
+
+
+\begin{center}
+\tikz\node[draw=red,line width=2pt,rounded corners=4pt,inner sep=6pt,align=center]{But $g$ is {\it \bf \color{red} ergodic}:\\ expected value  $\E{g}=\gbar$ time-average.};
+\end{center}
+
+\item[]<4->
+\vspace{.5cm}
+\underline{Behavioral protocol:} choose process with max $\gbar$, outperform in the long run.
+
+\item[]<5->
+\vspace{.5cm}
+\underline{Note:} exact correspondence to deterministic case.
+\ei
+
+
+}
+
+\frame{{Decision theory}
+\bi
+\setlength{\itemsep}{10pt}
+\item[]<1->
+1650s: expected-value theory -- maximize $\E{x(t+\Dt)}$.
+
+\item[]<2->
+1730s: doesn't work -- maximize $\E{u(x(t+\Dt))}$ instead.
+\bi
+\item[]<3->
+Result: better describes observed behavior.
+
+\item[]<4->
+(Trivial: utility function $u(x)$ is extra degree of freedom.)
+\ei
+\item[]<5->
+1940s: axiomatization -- max $\E{u(x(t+\Dt))}$ interpreted as consistent idiosyncratic preferences.
+\ei
+}
+
+\frame{
+    \bi
+    \setlength{\itemsep}{10pt}
+    \item[]<1->
+Compare to our structure
+    \item[]<2->
+Maximand: $\gbar=\frac{\overline{\Dv}}{\Dt}.$
+    \item[]<3->
+Ergodic $\rightarrow$ time-average $\gbar=\E{g}$.
+\vspace{.2cm}
+\bi
+\setlength{\itemsep}{8pt}
+\item[]<4->
+Maximize $\E{g}=\frac{\Dv}{\Dt}=\frac{1}{\Dt} \E{v(x(t+\Dt))}-v(x(t))$.
+\item[]<5->
+Multiply with constant $\Dt$, same behavior:\newline
+$v(x(t+\Dt))-v(x(t))$.
+\item[]<6->
+add constant $v(x(t))$, same behavior:\newline
+$\E{v(x(t+\Dt))}$.
+\ei
+\item[]<7->
+\vspace{.2cm}
+$\rightarrow$ expected-utility theory, except one letter
+\begin{center}
+$\E{\textcolor{red}{v}(x(t+\Dt))}=\E{\textcolor{red}{u}(x(t+\Dt))}$.
+\end{center}
+\ei
+}
+
+\frame{
+\bi
+\setlength{\itemsep}{10pt}
+\item[]<1->
+\hspace{-1cm}Bird's eye: 
+
+\item[]<2->
+\hspace{-1cm}
+1738: introduction of a model, $\E{u(x(t+\Dt))}$.
+
+\item[]<3->
+\hspace{-1cm}
+1944: axiomatization = interpretation of that model.
+
+\item[]<4->
+\hspace{-1cm}
+Now: alternative axiomatization = alternative interpretation.
+\bi
+\setlength{\itemsep}{6pt}
+\item[]<5->
+$u(x)$ = ergodicity transformation, $v(x)$. \newline
+Missing concepts in 1738.
+\item[]<6->
+Non-linear ``utility:'' people maximize wealth. 
+\item[]<7->
+Properly, consistently, over time.
+\item[]<8->
+Non-ergodicity $\to$ different from max $\E{x}$.
+\item[]<9->
+No (immediate) evidence of idiosyncratic risk preferences, aversion, seeking, bias.
+\ei
+\ei
+}
+
+
+\frame{
+Different behaviors: 
+\bi
+\item[\leftarrow]<1-> different dynamical circumstances.
+\item[\leftarrow]<2-> different impressions of dynamics.
+\item[\leftarrow]<3-> different personalities.
+\ei
+}
+
+\end{document}
