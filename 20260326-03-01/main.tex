@@ -45,7 +45,7 @@ X_{t+1} & = \left\{
 \end{array}
 \right.
 \end{align*}
-Expected growth factor is $\mathbb{E}\left[ G \right]_\text{indiv}  =g$:
+Expectation value growth factor is $\mathbb{E}\left[ G \right]_\text{indiv}  =g$:
 \begin{align*}
 \mathbb{E}\left[W_t\right] &= W_0\, g^t
 \end{align*}
@@ -70,15 +70,15 @@ Time averaged growth factor is $\bar{G}_\text{indiv} = \sqrt{g^2-r^2}$:
 Outcome & Growth factor & Probability\\
 \hline
 Both have bad seasons &  $g-r$ & $\frac{1}{4}$\\
-One good, one bad &  $g$  & $\frac{1}{2}$\\
 Both have good seasons &  $g+r$ & $\frac{1}{4}$\\
+One good, one bad &  $g$  & $\frac{1}{2}$\\
 \hline
 \end{tabular}
 }
 
 \frame{
-\frametitle{Expected value vs EE analysis}
-The expected growth factor per season is:
+\frametitle{Expectation value vs EE analysis}
+The expectation value growth factor per season is:
 
 \begin{align*}
 \mathbb{E}\left[ G \right]_\text{coop}  &= \frac{1}{4}\, (g-r)+ \frac{1}{2} \,g + \frac{1}{4}\,(g+r) = g = \mathbb{E}\left[ G \right]_\text{indiv} .
@@ -118,32 +118,38 @@ Choose $g=\sqrt{2}$, $r = \frac{2}{\sqrt{3}}$.
 }
 
 
+%\frame{
+%\frametitle{Generalisation to $N$ members and continuum limit}
+%Wealths $X_1(t)$, $X_2(t), \ldots X_N(t)$.
+%
+%Introduce random growth factors
+%\begin{align*}
+%g_i(t) = \mu\, \Delta t  + \sigma \Delta W_i(t)
+%\end{align*}
+%where  $\Delta W_i(t) \sim \mathcal{N}\left(0, \Delta t\right)$, independent.
+%
+%Each round with full pooling and sharing, each agent gets
+%\begin{align*}
+%\frac{1}{N} \sum_{i=1}^N g_i(t)\, X_i(t) &= \frac{1}{N} \sum_{i=1}^N \left( \mu\, \Delta t  + \sigma \Delta W_i(t) \right) \, X_i(t) \\
+%&= \left( \mu \Delta t + \frac{\sigma}{N} \sum_{i=1}^N  \Delta W_i(t)\right) \, X_i(t)\\
+%&=  \left( \mu \Delta t  + \frac{\sigma}{\sqrt{N}} \Delta W(t) \right)\, X_i(t)
+%\end{align*}
+%where $\Delta W(t) \sim \mathcal{N}\left(0, \Delta t\right)$. 
+%}
+
 \frame{
 \frametitle{Generalisation to $N$ members and continuum limit}
-Wealths $X_1(t)$, $X_2(t), \ldots X_N(t)$.
-
-Introduce random growth factors
+Introduce $N$ random growth factors
 \begin{align*}
-g_i(t) = \mu\, \Delta t  + \sigma \Delta W_i(t)
+g_i(t) = \mu\, \Delta t  + \sigma \Delta W_i(t), \ \ \ \ \ \Delta W_i(t) \sim \mathcal{N}\left(0, \Delta t\right)
 \end{align*}
-where  $\Delta W_i(t) \sim \mathcal{N}\left(0, \Delta t\right)$, independent.
 
-Each round with full pooling and sharing, each agent gets
+With full sharing, a single representative agent suffices:
 \begin{align*}
-\frac{1}{N} \sum_{i=1}^N g_i(t)\, X_i(t) &= \frac{1}{N} \sum_{i=1}^N \left( \mu\, \Delta t  + \sigma \Delta W_i(t) \right) \, X_i(t) \\
-&= \left( \mu \Delta t + \frac{\sigma}{N} \sum_{i=1}^N  \Delta W_i(t)\right) \, X_i(t)\\
-&=  \left( \mu \Delta t  + \frac{\sigma}{\sqrt{N}} \Delta W(t) \right)\, X_i(t)
+X(t+\Delta t) &= X(t) + X(t) \,  \left( \mu \Delta t  + \frac{\sigma}{\sqrt{N}} \Delta W(t) \right) 
 \end{align*}
-where $\Delta W(t) \sim \mathcal{N}\left(0, \Delta t\right)$. 
-}
+with $\Delta W(t) \sim \mathcal{N}\left(0, \Delta t\right)$.
 
-\frame{
-\frametitle{Generalisation to $N$ members and continuum limit}
-
-Single representative agent:
-\begin{align*}
-X(t+\Delta t) &= X(t) + X(t) \,  \left( \mu \Delta t  + \frac{\sigma}{\sqrt{N}} \Delta W(t) \right)
-\end{align*}
 Continuum limit $(\Delta t \to 0)$:
 \begin{align*}
 dX(t) = X(t) \left( \mu \, dt + \frac{\sigma}{\sqrt{N}} \,dW_t\right)
@@ -175,23 +181,23 @@ For example, if $N=2$, cooperation is beneficial if
 \end{align*}
 }
 
-\frame{
-\frametitle{Correlated fluctuations}
-Also consider what happens when fluctuations $\Delta W_i(t)$ are correlated via correlation matrix
-\begin{align*}
-\rho_{ij} &= \left\{ 
-\begin{array}{ll}
-1 & \text{if $i =j$}\\
-\rho &\text{if $i \neq j$.}
-\end{array}
-\right.
-\end{align*}
-The growth rate of the cooperative is shown to be
-\begin{align*}
-\bar{g}^{(N)}(\rho) &= \mu -\frac{\sigma^2}{2 N} \left(1+(N-1)\rho\right).
-\end{align*}
-Cooperation benefit disappears as $\rho \to 1$.
-}
+%\frame{
+%\frametitle{Correlated fluctuations}
+%Also consider what happens when fluctuations $\Delta W_i(t)$ are correlated via correlation matrix
+%\begin{align*}
+%\rho_{ij} &= \left\{ 
+%\begin{array}{ll}
+%1 & \text{if $i =j$}\\
+%\rho &\text{if $i \neq j$.}
+%\end{array}
+%\right.
+%\end{align*}
+%The growth rate of the cooperative is shown to be
+%\begin{align*}
+%\bar{g}^{(N)}(\rho) &= \mu -\frac{\sigma^2}{2 N} \left(1+(N-1)\rho\right).
+%\end{align*}
+%Cooperation benefit disappears as $\rho \to 1$.
+%}
 
 
 \frame{
@@ -277,7 +283,7 @@ This does not imply a communist utopia: in a population of heterogeneous agents 
 \item
 Mechanism specifically relies on volatility reduction over time: no claim that this in the only mechanism for cooperation among self-interested individuals.
 \item
-Redistribution (partial pooling and sharing) creates power law tails in the relative wealth distribution.  There is a mismatch with the conventional interpretation of Pareto vs lognormal tails as measures of inequality.
+Redistribution (partial pooling and sharing) creates power law tails in the relative wealth distribution.  
 \item
 Negative redistribution is an empirically interesting regime and is poorly understood quantitatively.
 \end{itemize}
