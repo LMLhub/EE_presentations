@@ -293,15 +293,15 @@ def pdf_pages(spec) -> list[tuple[str, int]]:
 SLIDES: list = [
     ("pdf", 0),             # title page
 #    ("pdf", 1),             # Markets in overview
-    ("pdf", 2),             # Markets in overview
+#    ("pdf", 2),             # Markets in overview
     ("pdf", 3),             # Optimal leverage recap
     ("pdf", 4),        # Leverage efficiency
     ("pdf", 5),        # Simulation setup 1
     ("pdf", 6),        # Simulation setup 2
     ("app", "efficient"),
     ("pdf", 7),        # Predictions
-    ("pdf", 8),        # Equity premium puzzle
-    ("pdf", 9),        # Summary
+#    ("pdf", 8),        # Equity premium puzzle
+#    ("pdf", 9),        # Summary
     ("pdf", 10),        # Thank you
     
 ]

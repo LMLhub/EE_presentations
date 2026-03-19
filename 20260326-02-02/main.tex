@@ -84,7 +84,7 @@ The market consist of two agents, \textcolor{mplblue}{$A$} and \textcolor{mplred
 
 one risky asset ($s$: GBM with exogenous parameters $\mu_s, \sigma_s$)
 
-and one risk-free asset ($r$: endogenous drift $\mu_r$)
+and a debt contract ($r$: endogenous drift $\mu_r$)
 
 \vf
 
@@ -132,7 +132,7 @@ and one risk-free asset ($r$: endogenous drift $\mu_r$)
   \ei 
   \item If \textcolor{mplred}{$B$}'s return was worse than \textcolor{mplblue}{$A$}'s during $dt$: 
   \bi 
-    \item If \textcolor{mplblue}{$A$} borrowed from \textcolor{mplred}{$B$}: Increase $\mu_r$ with $\Delta\mu dt \mu $
+    \item If \textcolor{mplblue}{$A$} borrowed from \textcolor{mplred}{$B$}: Increase $\mu_r$ with $\Delta\mu dt $
     \item If \textcolor{mplred}{$B$} borrowed from \textcolor{mplblue}{$A$}: Decrease $\mu_r$ with $\Delta\mu dt $
   \ei
 \ei
@@ -149,7 +149,7 @@ Does $\ell_{opt} = 1$ hold for real markets?
 \begin{center}
   \includegraphics[height=5cm]{./figs/pdf/growth_vs_leverage_all.pdf}\\
 \end{center}
-{\tiny Figure 10.3 in Peters and Adamou (2025).
+{\tiny Figure 10.7 in Peters and Adamou (2025).
    Confidence bands indicate two standard errors of the prediction,
    where the standard error is $\sigma_{ \ell_{opt}(\Delta t)} = \frac{1}{\sigma_s \Delta t^{1/2}}$.
    }
