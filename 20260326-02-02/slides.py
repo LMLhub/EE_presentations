@@ -38,13 +38,15 @@ def app_slide_efficiency() -> None:
     """, unsafe_allow_html=True)
 
     st.set_page_config(layout="centered")
-    st.markdown('<div style="margin-top: 2rem;"></div>', unsafe_allow_html=True)
-    st.markdown('<p class="slide-title">Market simulation</p>', unsafe_allow_html=True)
+    colA, colB = st.columns([0.1, 8])
+    with colB:
+        st.markdown('<div style="margin-top: 2rem;"></div>', unsafe_allow_html=True)
+        st.markdown('<p class="slide-title">Market simulation</p>', unsafe_allow_html=True)
     #st.markdown("Investor A uses optimal leverage ℓ = (μ_e)/σ², borrowing from B. "
     #            "The adaptive scenario raises r when A's time-average growth exceeds B's.")
 
     # ── Sidebar parameters ────────────────────────────────────────────────────────
-    col1, col2 = st.columns([2,6])
+    col0, col1, col2 = st.columns([0.1,2,6])
     with col1:
         mu    = st.slider("Risky asset drift, $\mu_s$",        min_value=0.01, max_value=0.30, value=0.10, step=0.01)
         sigma = st.slider("Risky asset volatility, $\sigma_s$",   min_value=0.05, max_value=0.60, value=0.20, step=0.01)
@@ -290,7 +292,7 @@ def pdf_pages(spec) -> list[tuple[str, int]]:
 
 SLIDES: list = [
     ("pdf", 0),             # title page
-    ("pdf", 1),             # Markets in overview
+#    ("pdf", 1),             # Markets in overview
     ("pdf", 2),             # Markets in overview
     ("pdf", 3),             # Optimal leverage recap
     ("pdf", 4),        # Leverage efficiency
