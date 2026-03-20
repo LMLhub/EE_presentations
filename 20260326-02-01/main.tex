@@ -1,0 +1,138 @@
+\input{./../shared/preamble.tex}
+
+\title[\insertlogo\\]{\Large{\bf An Introduction to Ergodicity Economics: Markets (I)}}
+
+\author{
+{\bf Emilie Rosenlund Soysal}
+}
+
+\date{2026-03-26}
+
+
+\begin{document}
+
+\frame{\titlepage}
+%-----------------------2 ----------------------
+\frame{
+\frametitle{Markets}
+\begin{center}
+\includegraphics[height=7cm]{./contents_2.png}
+\end{center}
+}
+
+%-----------------------3 ----------------------
+
+\frame{
+\frametitle{Markets}
+Economic agents can maximise their wealth over time by maximising the 
+time-average growth rate of the wealth.
+\vspace{1cm}
+\bi
+\item What does that mean for the portfolio choice?
+  \bi \item Optimal leverage
+  \ei
+\vspace{1cm}
+\item What does that mean for the way markets organise?
+  \bi \item Leverage efficiency
+  \ei
+\ei
+}
+
+%----------------------- 3 ----------------------
+
+\frame{
+\frametitle{Geometric Brownian Motion}
+  Geometric Brownian Motion (GBM) is the workhorse model of financial assets:
+\be
+  dx = x(\mu \, dt + \sigma \, dW\,)
+\ee
+with drift, $\mu$, and volatility, $\sigma$.
+
+\vspace{1cm}
+\begin{figure}[H]
+\fbox{
+  \parbox{7cm}{
+  \vspace{0.2cm}\textbf{Multiplicative dynamics:} \\
+  
+  Ensemble average growth rate: $g_{\langle \rangle} = \mu$ \\
+  Time average growth rate: $\bar{g}$ = $\mu - \frac{\sigma^2}{2}$\\
+  }
+}
+\end{figure}
+}
+%----------------------- 4 ----------------------
+
+\frame{
+\frametitle{Portfolio choice}
+  Assume there are only two assets available
+  \bi
+    \item Risk-free asset:     
+    \be 
+    dx_r = x_r \, \mu_r \, dt 
+    \ee
+    \item Risky asset (stock):
+    \be
+        dx_s = x_s \, ( \mu_s \, dt + \sigma_s \, dW)
+    \ee
+        
+  \ei
+  \vspace{1cm}
+  \textbf{Portfolio problem:} Allocate wealth to each of the two assets. \\
+  Leverage, $\ell$, is the share of wealth allocated to the risky asset.
+}
+
+%----------------------- 5 ----------------------
+
+\frame{
+\frametitle{Optimal leverage}
+  Portfolio dynamic:
+  \be
+    dx = x((\mu_r + \ell \,\mu_e )\, dt + \ell \, \sigma_s \, dW\,)
+  \ee
+  where  $\mu_e$ is the excess drift, $\mu_s - \mu_r$.
+
+  The time average growth rate is
+  \be
+    \bar{g} = \mu_r + \ell \, \mu_e - \ell^2  \,\frac{\sigma_s^2}{2}
+  \ee
+  Maximising $\bar{g}$ with respect to $\ell$ gives us the
+ \begin{figure}[H]
+ \fbox{
+  \parbox{6cm}{
+  \textbf{Optimal leverage:} \\
+  \be
+    \ell_{opt} = \frac{\mu_e}{\sigma_s^2}
+  \ee
+  }
+}
+\end{figure}
+}
+
+%----------------------- 6 ----------------------
+
+\frame{
+\frametitle{Comparison to standard models}
+  Portfolio choice is usually taught through
+  \bi
+    \item Markowitz portfolio theory:\\
+    Choose a mix between the tangency portfolio and the risk-free asset.
+    \item Sharpe ratio:\\
+    Choose the portfolio with the highest Sharpe ratio: $\frac{\mu_s-\mu_r}{\sigma_s}$
+  \ei
+  Standard theory recognises the trade-off between risk and return but offers no guidance on how to do the trade-off
+  (optimal choice depends on risk preferences).
+  \vspace{1cm}
+  
+  Ergodicity Economics does!
+}
+
+%----------------------- 7 ----------------------
+
+\frame{
+\begin{center}
+{\huge{Thank you.}}
+\vspace{1cm}
+\end{center}
+}
+
+\end{document}
