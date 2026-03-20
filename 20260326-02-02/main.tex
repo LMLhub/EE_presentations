@@ -1,0 +1,199 @@
+\input{./../shared/preamble.tex}
+\definecolor{mplblue}{HTML}{1f77b4}
+\definecolor{mplred}{HTML}{d62728}
+
+\title[\insertlogo\\]{\Large{\bf An Introduction to Ergodicity Economics: Markets (II)}}
+
+\author{
+{\bf Emilie Rosenlund Soysal}
+}
+\date{2026-03-26}
+
+\begin{document}
+%----------------1-----------------
+\frame{\titlepage}
+
+%----------------2-----------------
+\frame{
+\frametitle{Markets}
+\begin{center}
+\includegraphics[height=7cm]{./contents_2.png}
+\end{center}
+}
+%----------------2-----------------
+\frame{
+\frametitle{Markets}
+Economic agents can maximise their wealth over time by maximising the 
+time-average growth rate of the wealth.
+\vspace{1cm}
+\bi
+\item What does that mean for the portfolio choice?
+  \bi \item Optimal leverage
+  \ei
+\vspace{1cm}
+\item What does that mean for the way markets organise?
+  \bi \item Leverage efficiency
+  \ei
+\ei
+}
+
+%----------------3-----------------
+\frame{
+\frametitle{Optimal leverage}
+For a portfolio consisting of one risky asset ($s$) and one risk-free asset ($r$), the optimal share of wealth invested in the risky asset is:
+\begin{align}
+  \ell_{opt} = \frac{\mu_s-\mu_r}{\sigma_s^2}
+\end{align}
+
+\begin{figure}[H]
+\fbox{
+  \parbox{6cm}{
+  \textbf{Leverage efficiency:} \\
+  Markets self-organise around 
+  \be 
+    \ell_{opt} = 1
+  \ee
+  }
+}
+\end{figure}
+}
+
+%----------------4-----------------
+
+\frame{
+\frametitle{Leverage efficiency}
+Why $\ell_{opt} = 1$?
+\bi
+  \item Efficiency: \n
+  It is impossible for an individual investor to beat the market simply by using leverage.
+  \item Stability: 
+    \bi 
+      \item $\ell_{opt} > 1$: Everyone wants to borrow cash to buy stocks, but noone wants to
+      lend money.
+      \item $\ell_{opt} < 0$: Everyone wants to borrow stocks and sell them to get cash, but
+      noone wants to lend stocks.
+    \ei
+\ei
+}
+
+%-------------- 5 -------------------
+
+\frame{
+\frametitle{Market simulation}
+The market consist of two agents, \textcolor{mplblue}{$A$} and \textcolor{mplred}{$B$}, 
+
+one risky asset ($s$: GBM with exogenous parameters $\mu_s, \sigma_s$)
+
+and a debt contract ($r$: endogenous drift $\mu_r$)
+
+\vf
+
+\begin{tikzpicture}[
+    every node/.style = {font=\sffamily},
+    arr/.style = {-{Stealth[length=5pt]}, thick},
+]
+\def\vstep{-1.0}
+
+% Spine
+\draw[thick] (0, 0.3) -- (0, 5*\vstep + 0.3);
+
+% Steps
+\foreach \i/\txt in {
+    0/{\textcolor{mplblue}{$A$} observes the risk-free rate, $\mu_r$, and the stock dynamic, $\mu_s$, $\sigma_s$},
+    1/{\textcolor{mplblue}{$A$} chooses its leverage, $\ell_A = \frac{\mu_s-\mu_r}{\sigma_s^2}$},
+    2/{\textcolor{mplred}{$B$} accepts borrowing\,/\,lending at the risk-free rate according to \textcolor{mplblue}{$A$}'s needs.},
+    3/{Portfolio outcomes are realised},
+    4/{\textcolor{mplred}{$B$} adjusts the risk-free rate, $\mu_r$}
+}{
+    \fill (0, \i*\vstep) circle (3.5pt);
+    \node[right=0.3cm, align=left, text width=7cm] at (0, \i*\vstep) {\txt};
+    \ifnum\i<4
+        \draw[arr] (0, \i*\vstep - 0.15) -- (0, \i*\vstep + \vstep + 0.15);
+    \fi
+}
+% Feedback arrow
+\draw[arr, dashed]
+    (-0.15, 4*\vstep) -- (-0.9, 4*\vstep)
+    -- (-0.9, 0.15)
+    -- (-0.15, 0.15);
+
+\end{tikzpicture}
+
+}
+%---------------- 6 -----------------
+
+\frame{
+\frametitle{Market simulation}
+\textcolor{mplred}{$B$}'s rate setting rule:
+\bi
+  \item If \textcolor{mplred}{$B$}'s return was at least as good as \textcolor{mplblue}{$A$}'s during $dt$:
+  \bi 
+    \item Do nothing
+  \ei 
+  \item If \textcolor{mplred}{$B$}'s return was worse than \textcolor{mplblue}{$A$}'s during $dt$: 
+  \bi 
+    \item If \textcolor{mplblue}{$A$} borrowed from \textcolor{mplred}{$B$}: Increase $\mu_r$ with $\Delta\mu dt $
+    \item If \textcolor{mplred}{$B$} borrowed from \textcolor{mplblue}{$A$}: Decrease $\mu_r$ with $\Delta\mu dt $
+  \ei
+\ei
+\vf
+\textcolor{mplblue}{$A$} and \textcolor{mplred}{$B$} start out with the same wealth.
+}
+
+%---------------- 7 -----------------
+
+\frame{
+\frametitle{Predictions}
+Does $\ell_{opt} = 1$ hold for real markets? 
+\vf
+\begin{center}
+  \includegraphics[height=5cm]{./figs/pdf/growth_vs_leverage_all.pdf}\\
+\end{center}
+{\tiny Figure 10.7 in Peters and Adamou (2025).
+   Confidence bands indicate two standard errors of the prediction,
+   where the standard error is $\sigma_{ \ell_{opt}(\Delta t)} = \frac{1}{\sigma_s \Delta t^{1/2}}$.
+   }
+}
+
+
+%---------------- 8 -----------------
+
+\frame{
+\frametitle{Equity Premium Puzzle}
+Standard economic theory cannot explain the high premium on equity, but leverage efficiency can:
+\bi
+  \item $ ~3-10 \%$ in real life
+  \item $ ~0.1-0.5 \% $ with standard theory (CCAPM)
+  \item $ ~0.4-6.4 \% $ with optimal leverage ($s=$S\&P500 and $r =$ FED overnight interbank rate)
+\ei
+
+
+Premium: difference in time average growth rate ($\epsilon$)
+\begin{align}
+\epsilon &= \bar{g}_s - \bar{g}_r \\
+        &= (\mu_s -\mu_r) - \frac{\sigma_s^2}{2} \\
+        &= \frac{\mu_s -\mu_r}{2}
+\end{align}
+using leverage efficiency $\ell_{opt}=1 \implies \mu_s - \mu_r = \sigma_s^2$ 
+}
+
+%---------------- 9 -----------------
+\frame{
+  \frametitle{Summary}
+  \bi
+  \item For a risky and risk-free asset, the growth-rate optimal leverage is $\ell_{opt} = \frac{\mu_s - \mu_r}{\sigma_s^2}$
+  \item Leverage efficient markets self-organise around $\ell_{opt} = 1$
+  \item Leverage efficiency predicts a fixed relationship between drift, volatility and risk premium, supported by real life data
+  \ei
+}
+
+%---------------- 10 -----------------
+\frame{
+\begin{center}
+{\huge{Thank you.}}
+\vspace{1cm}
+\end{center}
+}
+
+
+\end{document}
