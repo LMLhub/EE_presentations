@@ -1,48 +1,177 @@
 \input{./../shared/preamble.tex}
+\usepackage{comment}
 
-\title[\insertlogo\\]{\Large{\bf Example Presentation}}
-
-\author{
-{\bf EE Presentations}
-}
-
-\date{}
-
+\title[\insertlogo\\]{\Large{\bf Inequality}}
+\author{{\bf Alexander Adamou}}
+\date{26 March 2026}
 
 \begin{document}
 
 \frame{\titlepage}
 
 \frame{
-\frametitle{Brownian motion with drift}
-A particle following Brownian motion with drift $\mu$ and volatility $\sigma$ satisfies
+\frametitle{Chapter 8}
+\bc
+\includegraphics[width=10cm]{./figs/chapter8.jpg}
+\ec
+}
+
+\frame{
+\frametitle{Narrative arc}
+\centering
+Concepts\\
+$\downarrow$\\
+Individuals\\
+$\downarrow$\\
+\textcolor{red}{\bf Populations}\\
+$\downarrow$\\
+Societies\np
+\vspace{0.5cm}
+Aim: set baseline properties before adding interactions.
+}
+
+\frame{
+\frametitle{Model world}
+$N$ wealths, $x_i(t)$, following independent trajectories of GBM.\np
+\bc
+\includegraphics[width=9cm]{./figs/trajectories.pdf}
+\ec
+}
+
+\frame{
+\frametitle{Lognormal distribution}
+\only<1>{
+\bc
+\includegraphics[width=9cm]{./figs/8-1-1.jpg}
+\ec
+}
+\only<2>{
+\bc
+\includegraphics[width=9.5cm]{./figs/trajectories.pdf}
+\ec
+}
+\only<3>{
+\bc
+\includegraphics[width=9.5cm]{./figs/density.pdf}
+\ec
+%Notes: distribution broadens over time, remains anchored to time-average growth rate, becomes increasingly disconnected from ensemble-average growth rate.
+}
+}
+
+\frame{
+\frametitle{Two growth rates}
+\only<1>{
+Two ways to quantify "average" wealth growth rate in our model population:\np
+{\bf 1. Plutocratic growth rate}\np
+Find the population average wealth, $\ave{x}_N$, and compute its ergodic growth rate:
 \be
-  dx = \mu \, dt + \sigma \, dW\,.
+g_\text{plu} \equiv \frac{\D\ln\ave{x}_N}{\Dt}.
 \ee
-The figure below shows three sample paths with different drift values.
-\begin{center}
-\includegraphics[height=5cm]{./figs/pdf/brownian-paths.pdf}
-\end{center}
+``Plutocratic'' because each individual makes a wealth-weighted contribution to the average.
+}
+\only<2>{
+\bc
+\includegraphics[width=9.5cm]{./figs/gplu.pdf}
+\ec
+}
+\only<3>{
+Two ways to quantify "average" wealth growth rate in our model population:\np
+{\bf 2. Democratic growth rate}\np
+Find the ergodic growth rate of each wealth, $\frac{\D\ln x_i}{\Dt}$, and compute the population average:
+\be
+g_\text{dem} \equiv \ave{\frac{\D\ln x}{\Dt}}_N.
+\ee
+``Democratic'' because each individual makes an equal contribution to the average.
+}
+\only<4>{
+\bc
+\includegraphics[width=9.5cm]{./figs/gdem.pdf}
+\ec
+}
 }
 
 \frame{
-\frametitle{Ensemble averages}
-For an ensemble of $N$ independent paths, the sample mean converges to $\mu t$.
-\begin{center}
-\includegraphics[height=6cm]{./figs/pdf/ensemble-paths.pdf}
-\end{center}
+\frametitle{Ergodicity}
+For finite $N$, both $g_\text{plu}$ and $g_\text{dem}$ are random variables.\np
+We can replace them with model properties as $N\to\infty$:
+\bea
+&g_\text{plu} = \frac{\D\ln\ave{x}_N}{\Dt} &\rightarrow \gens = \mu;\\
+&g_\text{dem} = \ave{\frac{\D\ln x}{\Dt}}_N &\rightarrow \gbar = \mu-\frac{\sigma^2}{2} \text{ (ergodicity)}.
+\eea
+Good approximations for "large enough" model populations.
 }
 
 \frame{
-\frametitle{Key observations}
+\frametitle{Discussion}
+Jeff Bezos in the Library (with the Extreme Wealth).\np
+\vspace{0.5cm}
+Gross Domestic Product -- government vs.~the people?\np
+\vspace{0.5cm}
+``The two growth rates of the economy''\\
+Yonatan Berman, OP, AA (2020)\\
+\textcolor{blue}{\tt https://arxiv.org/abs/2009.10451}.
+}
+
+\frame{
+\frametitle{Inequality}
+\only<1>{
+``A whole menagerie of inequality measures in economics.''\np
+\bc
+\includegraphics[width=9cm]{./figs/density.pdf}
+\ec
+%Idea is to summarise a distribution by a single number.\np
+}
+\only<2>{
+\underline{Recipe for inequality metric \`a la EE}\np
+\vspace{0.25cm}
+1. Note that: if $g_\text{plu} > g_\text{dem}$, then inequality is increasing; and if $g_\text{plu} < g_\text{dem}$, then inequality is decreasing.\np
+2. Therefore, define inequality, $J(t)$, as the thing that grows at the {\bf difference} between the two rates:
+\be
+\frac{dJ}{dt} = g_\text{plu} - g_\text{dem}.
+\ee
+3. Integrate from time $0$ (equality) to $t$ to get:
+\be
+J(t) = \ln\ave{x(t)}_N - \ave{\ln x(t)}_N.
+\ee
+}
+\only<3>{
+$J$ is the {\bf mean logarithmic deviation} or {\bf Theil's $L$ index}.\np
+For a large population, $N\to\infty$, following GBM,
+\be
+\frac{dJ}{dt} = \gens - \gbar = \frac{\sigma^2}{2} \quad \Rightarrow \quad J(t) = \frac{\sigma^2 t}{2},
+\ee
+so inequality grows without bound.\np
+For general wealth dynamics with ergodicity transformation, $v(x)$, wealth is $v$-normally distributed and
+\be
+J(t) = v\left(\ave{x(t)}_N\right) - \ave{v\left(x(t)\right)}_N.
+\ee
+}
+}
+
+\frame{
+\frametitle{Finite populations}
+\only<1>{
+Consider the average wealth, $\ave{x(t)}_N$, of our model population.\np
+Tension between two limiting scenarios:\np
 \bi
-\item The \red{ensemble average} grows linearly: $\ave{x(t)} = \mu t$
-\item Individual paths fluctuate around this mean
-\item Higher $\sigma$ increases the spread of paths
-\item The \red{time average} for a single path converges to $\mu t$ only as $t \to \infty$
+\item for large $N$, $\ave{x(t)}_N$ grows at the ensemble-average growth rate, $\mu$ (``self-averaging'');\np
+\item for large $t$, all trajectories in the population (and therefore $\ave{x(t)}_N$) grow at the time-average growth rate, $\mu-\sigma^2/2$.\np
 \ei
-\vf
-This distinction between ensemble and time averages is central to ergodicity economics.
+Question: for a given $N$, for how long does self-averaging hold?\np
+}
+\only<2>{
+Statistical physics to the rescue -- Chapter 8.2.1.\np
+Self-averaging holds when the relative fluctuations in the population average are small (Ginzburg criterion):
+\be
+t < t_c \equiv \frac{2\ln N}{\sigma^2}.
+\ee
+After this, the population average will be dominated by large deviations -- and we can predict its evolution.
+}
+\only<3>{
+\bc
+\includegraphics[width=9.5cm]{./figs/ginzburg.pdf}
+\ec
+}
 }
 
 \frame{
