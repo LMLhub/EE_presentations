@@ -41,7 +41,8 @@ ax.semilogy(t, ensemble_average, label=r'$\exp(\mu t)$', color='C2')
 ax.semilogy(t, time_average, label=r'$\exp((\mu-\sigma^2/2) t)$', color='C1')
 #ax.semilogy(t[1:], np.exp((mu-sigma**2/2-np.log(N)/t[1:]+(np.sqrt(2*np.log(N))*sigma)/np.sqrt(t[1:]))*t[1:]), label=r'$x(0)\exp\left(\left(\mu-\frac{\sigma^2}{2}-\frac{\ln(N)}{t}+\frac{\sqrt{2\ln N}\sigma}{t^{1/2}}\right) t\right)$', color='C3')
 
-# add GDP
+# add GDP and DDP
+ax.semilogy(t, GDP, color='red', label=r'$\exp(g_\text{plu}(t)t)$')
 ax.semilogy(t, DDP, color='blue', label=r'$\exp(g_\text{dem}(t)t)$')
 
 # Labels, legends, etc.

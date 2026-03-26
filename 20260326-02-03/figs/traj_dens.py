@@ -34,8 +34,6 @@ fig, ax = plt.subplots(1,1)
 ax.semilogy(t, X[:,0], color='lightgrey', linewidth=0.75, label="$x_i(t)$")
 ax.semilogy(t, X[:,1:], linewidth=0.75, color='lightgrey') # no label
 #ax.semilogy([tc,tc], [1E-15,1E15], color='black', linestyle=':',label="$t=t_c$")
-ax.semilogy(t, ensemble_average, label=r'$\exp(\mu t)$', color='C2')
-ax.semilogy(t, time_average, label=r'$\exp((\mu-\sigma^2/2) t)$', color='C1')
 #ax.semilogy(t[1:], np.exp((mu-sigma**2/2-np.log(N)/t[1:]+(np.sqrt(2*np.log(N))*sigma)/np.sqrt(t[1:]))*t[1:]), label=r'$x(0)\exp\left(\left(\mu-\frac{\sigma^2}{2}-\frac{\ln(N)}{t}+\frac{\sqrt{2\ln N}\sigma}{t^{1/2}}\right) t\right)$', color='C3')
 
 # Labels, legends, etc.
@@ -48,15 +46,20 @@ ax.set_xlim(tlim)
 Xlim = [1E-7, 1E3]
 ax.set_ylim(Xlim)
 
-
 # Apply final tweaks and save figure as pdf
 ratio = 0.7
 size = fig.get_size_inches()[0]
 fig.set_size_inches(size, size*ratio)
 plt.savefig('trajectories.pdf', bbox_inches='tight', pad_inches=0)
+
+# Add ensemble and time averages
+
+ax.semilogy(t, ensemble_average, label=r'$\exp(\mu t)$', color='C2')
+ax.semilogy(t, time_average, label=r'$\exp((\mu-\sigma^2/2) t)$', color='C1')
+ax.legend(loc='lower left', ncol=1, facecolor='white', framealpha=1, fontsize=7)
+plt.savefig('traj_ens_time.pdf', bbox_inches='tight', pad_inches=0)
 plt.close()
 
-# Add 
 
 # Plot density
 # Generate grid data

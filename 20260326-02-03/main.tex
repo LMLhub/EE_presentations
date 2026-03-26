@@ -18,24 +18,45 @@
 
 \frame{
 \frametitle{Narrative arc}
-\centering
+\bc
 Concepts\\
 $\downarrow$\\
 Individuals\\
 $\downarrow$\\
 \textcolor{red}{\bf Populations}\\
 $\downarrow$\\
-Societies\np
+Societies
+\ec
 \vspace{0.5cm}
-Aim: set baseline properties before adding interactions.
+In a model world where personal wealth follows random multiplicative growth.
 }
 
 \frame{
 \frametitle{Model world}
-$N$ wealths, $x_i(t)$, following independent trajectories of GBM.\np
+\only<1>{
+Geometric Brownian Motion (GBM) for wealth $x(t)$,
+\be
+dx = x\left(\mu dt + \sigma dW\right),
+\ee
+where:
+\bi
+\item drift $\mu$ -- deterministic growth;
+\item volatility $\sigma$ -- fluctuation amplitude;
+\item Wiener increment $dW\sim\mathcal{N}(0,dt)$ -- randomness.\np
+\ei
+Generalisation of repeated coin toss.\np
+Our model world contains $N$ independent trajectories, $x_i(t)$.
+}
+\only<2>{
 \bc
-\includegraphics[width=9cm]{./figs/trajectories.pdf}
+\includegraphics[width=9.5cm]{./figs/trajectories.pdf}
 \ec
+}
+\only<3>{
+\bc
+\includegraphics[width=9.5cm]{./figs/traj_ens_time.pdf}
+\ec
+}
 }
 
 \frame{
@@ -47,7 +68,7 @@ $N$ wealths, $x_i(t)$, following independent trajectories of GBM.\np
 }
 \only<2>{
 \bc
-\includegraphics[width=9.5cm]{./figs/trajectories.pdf}
+\includegraphics[width=9.5cm]{./figs/traj_ens_time.pdf}
 \ec
 }
 \only<3>{
@@ -61,7 +82,7 @@ $N$ wealths, $x_i(t)$, following independent trajectories of GBM.\np
 \frame{
 \frametitle{Two growth rates}
 \only<1>{
-Two ways to quantify "average" wealth growth rate in our model population:\np
+Two ways to quantify the ``average'' wealth growth rate in our model population:\np
 {\bf 1. Plutocratic growth rate}\np
 Find the population average wealth, $\ave{x}_N$, and compute its ergodic growth rate:
 \be
@@ -75,7 +96,7 @@ g_\text{plu} \equiv \frac{\D\ln\ave{x}_N}{\Dt}.
 \ec
 }
 \only<3>{
-Two ways to quantify "average" wealth growth rate in our model population:\np
+Two ways to quantify``average'' wealth growth rate in our model population:\np
 {\bf 2. Democratic growth rate}\np
 Find the ergodic growth rate of each wealth, $\frac{\D\ln x_i}{\Dt}$, and compute the population average:
 \be
@@ -98,7 +119,7 @@ We can replace them with model properties as $N\to\infty$:
 &g_\text{plu} = \frac{\D\ln\ave{x}_N}{\Dt} &\rightarrow \gens = \mu;\\
 &g_\text{dem} = \ave{\frac{\D\ln x}{\Dt}}_N &\rightarrow \gbar = \mu-\frac{\sigma^2}{2} \text{ (ergodicity)}.
 \eea
-Good approximations for "large enough" model populations.
+Good approximations for ``large'' model populations.
 }
 
 \frame{
@@ -143,35 +164,35 @@ For a large population, $N\to\infty$, following GBM,
 so inequality grows without bound.\np
 For general wealth dynamics with ergodicity transformation, $v(x)$, wealth is $v$-normally distributed and
 \be
-J(t) = v\left(\ave{x(t)}_N\right) - \ave{v\left(x(t)\right)}_N.
+J_v(t) = v\left(\ave{x(t)}_N\right) - \ave{v\left(x(t)\right)}_N.
 \ee
 }
 }
 
 \frame{
 \frametitle{Finite populations}
-\only<1>{
-Consider the average wealth, $\ave{x(t)}_N$, of our model population.\np
-Tension between two limiting scenarios:\np
-\bi
-\item for large $N$, $\ave{x(t)}_N$ grows at the ensemble-average growth rate, $\mu$ (``self-averaging'');\np
-\item for large $t$, all trajectories in the population (and therefore $\ave{x(t)}_N$) grow at the time-average growth rate, $\mu-\sigma^2/2$.\np
-\ei
-Question: for a given $N$, for how long does self-averaging hold?\np
-}
-\only<2>{
-Statistical physics to the rescue -- Chapter 8.2.1.\np
-Self-averaging holds when the relative fluctuations in the population average are small (Ginzburg criterion):
-\be
-t < t_c \equiv \frac{2\ln N}{\sigma^2}.
-\ee
-After this, the population average will be dominated by large deviations -- and we can predict its evolution.
-}
-\only<3>{
+%\only<1>{
+%Consider the average wealth, $\ave{x(t)}_N$, of our model population.\np
+%Tension between two limiting scenarios:\np
+%\bi
+%\item for large $N$, $\ave{x(t)}_N$ grows at the ensemble-average growth rate, $\mu$ (``self-averaging'');\np
+%\item for large $t$, all trajectories in the population (and therefore $\ave{x(t)}_N$) grow at the time-average growth rate, $\mu-\sigma^2/2$.\np
+%\ei
+%Question: for a given $N$, for how long does self-averaging hold?\np
+%}
+%\only<2>{
+%Statistical physics to the rescue -- Chapter 8.2.1.\np
+%Self-averaging holds when the relative fluctuations in the population average are small (Ginzburg criterion):
+%\be
+%t < t_c \equiv \frac{2\ln N}{\sigma^2}.
+%\ee
+%After this, the population average will be dominated by large deviations -- and we can predict its evolution.
+%}
+%\only<3>{
 \bc
 \includegraphics[width=9.5cm]{./figs/ginzburg.pdf}
 \ec
-}
+%}
 }
 
 \frame{
